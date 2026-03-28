@@ -38,7 +38,7 @@ export const localBusinessSchema = {
     { '@type': 'City', name: 'Biała Podlaska' },
     { '@type': 'State', name: 'Mazowieckie' },
   ],
-  priceRange: '25–45 zł/m²',
+  priceRange: '$$',
   currenciesAccepted: 'PLN',
   paymentAccepted: 'Cash, Bank Transfer',
   openingHoursSpecification: [
@@ -108,6 +108,28 @@ export const localBusinessSchema = {
     CONTACT.facebook,
     CONTACT.google,
   ],
+};
+
+export const krzysztofSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Krzysztof Książczak',
+  jobTitle: 'Mistrz parkieciarz',
+  description: 'Specjalista cyklinowania bezpyłowego i renowacji podłóg drewnianych z ponad 25-letnim doświadczeniem.',
+  telephone: CONTACT.phoneHref.replace('tel:', ''),
+  worksFor: { '@id': `${SITE.url}/#business` },
+  url: SITE.url,
+};
+
+export const andrzejSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Andrzej Książczak',
+  jobTitle: 'Mistrz stolarz – schody drewniane',
+  description: 'Specjalista produkcji, montażu i renowacji schodów drewnianych z ponad 25-letnim doświadczeniem.',
+  telephone: CONTACT.phoneSecondHref.replace('tel:', ''),
+  worksFor: { '@id': `${SITE.url}/#business` },
+  url: `${SITE.url}/schody-drewniane`,
 };
 
 export const howToSchema = {

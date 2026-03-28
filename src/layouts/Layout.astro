@@ -17,7 +17,7 @@ const {
   title,
   description,
   canonical,
-  ogImage = '/images/og-default.jpg',
+  ogImage = '/og-default.jpg',
   schema,
   breadcrumbs,
 } = Astro.props;
@@ -91,9 +91,11 @@ if (breadcrumbs && breadcrumbs.length > 0) {
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).toString()} />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Geo / Local SEO -->
     <meta name="geo.region" content="PL-MZ" />
@@ -106,7 +108,7 @@ if (breadcrumbs && breadcrumbs.length > 0) {
 
     <!-- Schema.org JSON-LD -->
     {schemas.map((s) => (
-      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
   </head>
   <body class="min-h-screen flex flex-col">
@@ -116,5 +118,19 @@ if (breadcrumbs && breadcrumbs.length > 0) {
     </main>
     <Footer />
     <StickyPhone />
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

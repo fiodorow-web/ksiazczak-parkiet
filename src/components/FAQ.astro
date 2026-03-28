@@ -10,7 +10,7 @@ const defaultFAQ = [
   },
   {
     q: 'Ile kosztuje cyklinowanie parkietu w Siedlcach i okolicach?',
-    a: 'Cena cyklinowania zależy od stanu podłogi, rodzaju drewna i wybranego wykończenia. Orientacyjne ceny to: szlifowanie 25–45 zł/m², lakierowanie 15–25 zł/m², olejowanie 20–35 zł/m². Zapraszamy do kontaktu po bezpłatną wycenę – dojedziemy na miejsce i dokładnie ocenimy Twoją podłogę.',
+    a: 'Cena cyklinowania zależy od stanu podłogi, jej powierzchni, rodzaju drewna i wybranego wykończenia (lakier lub olej). Każde zlecenie wyceniamy indywidualnie – bezpłatnie dojedziemy na miejsce i dokładnie ocenimy Twoją podłogę. Zadzwoń po wycenę!',
   },
   {
     q: 'Jak długo trwa cyklinowanie podłogi?',
@@ -41,18 +41,30 @@ const defaultFAQ = [
 const { items = defaultFAQ } = Astro.props;
 ---
 
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": items.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+})} />
+
 <section class="section-padding bg-stone-50" id="faq" aria-labelledby="faq-heading">
   <div class="container-max">
     <div class="text-center">
-      <h2 class="section-title" id="faq-heading">Najczęstsze pytania</h2>
-      <p class="section-subtitle mx-auto max-w-xl">
+      <h2 class="section-title" id="faq-heading" data-animate>Najczęstsze pytania</h2>
+      <p class="section-subtitle mx-auto max-w-xl" data-animate style="transition-delay: 80ms">
         Odpowiedzi na pytania, które najczęściej zadają nasi klienci.
       </p>
     </div>
 
     <div class="mt-10 mx-auto max-w-3xl space-y-3" itemscope itemtype="https://schema.org/FAQPage">
-      {items.map((item) => (
+      {items.map((item, i) => (
         <details
+          data-animate
+          style={`transition-delay: ${i * 60}ms`}
           class="group rounded-xl bg-white shadow-sm ring-1 ring-stone-100 transition-shadow hover:shadow-md"
           itemscope
           itemprop="mainEntity"

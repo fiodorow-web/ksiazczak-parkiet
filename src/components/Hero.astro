@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/hero.jpg';
 import { CONTACT } from '../config';
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
@@ -7,19 +9,19 @@ const PHONE_HREF = CONTACT.phoneHref;
 <section class="relative overflow-hidden bg-stone-900">
   <!-- Background image / gradient -->
   <div class="absolute inset-0 z-0">
-    <!-- Replace this with your real hero photo -->
-    <img
-      src="/hero.jpg"
+    <Image
+      src={heroImg}
       alt="Piękna drewniana podłoga po cyklinowaniu bezpyłowym – Książczak Parkiety Siedlce"
       class="h-full w-full object-cover object-center"
-      width="1200"
-      height="700"
+      width={1920}
+      height={700}
+      format="webp"
+      quality={80}
       fetchpriority="high"
-      decoding="async"
-      onerror="this.style.display='none'"
+      loading="eager"
     />
     <!-- Overlay gradient -->
-    <div class="absolute inset-0 bg-gradient-to-r from-stone-900/90 via-stone-900/70 to-stone-900/40"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-stone-900/75 via-stone-900/50 to-stone-900/25"></div>
     <!-- Fallback gradient if no image -->
     <div class="absolute inset-0 -z-10 bg-gradient-to-br from-stone-800 via-stone-900 to-wood-900"></div>
   </div>
@@ -27,28 +29,44 @@ const PHONE_HREF = CONTACT.phoneHref;
   <div class="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
     <div class="max-w-2xl">
       <!-- Badge -->
-      <div class="mb-5 inline-flex items-center gap-2 rounded-full bg-wood-500/20 px-4 py-1.5 text-sm font-medium text-wood-300 ring-1 ring-wood-500/30">
+      <div
+        data-animate
+        style="transition-delay: 0ms"
+        class="mb-5 inline-flex items-center gap-2 rounded-full bg-wood-500/20 px-4 py-1.5 text-sm font-medium text-wood-300 ring-1 ring-wood-500/30"
+      >
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
-        Ponad 25 lat doświadczenia · Siedlce i Warszawa
+        Ponad 25 lat doświadczenia
       </div>
 
       <!-- H1 -->
-      <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white text-balance sm:text-5xl lg:text-6xl">
-        Cyklinowanie<br/>
-        <span class="text-wood-400">bezpyłowe</span><br/>
-        podłóg drewnianych
+      <h1
+        data-animate
+        style="transition-delay: 80ms"
+        class="text-3xl font-bold leading-tight tracking-tight text-white text-balance sm:text-5xl"
+      >
+        Profesjonalne usługi<br/>
+        <span class="text-wood-400">parkieciarskie</span><br/>
+        Siedlce i Warszawa
       </h1>
 
-      <p class="mt-6 text-lg leading-relaxed text-stone-300 text-balance">
-        Profesjonalna renowacja parkietów, podłóg drewnianych i schodów.
-        Technologia bezpyłowa – <strong class="text-white">bez bałaganu, bez pyłu</strong>.
+      <p
+        data-animate
+        style="transition-delay: 160ms"
+        class="mt-6 text-base leading-relaxed text-stone-300 text-balance sm:text-lg"
+      >
+        Cyklinowanie bezpyłowe, lakierowanie i olejowanie podłóg, układanie parkietu oraz <strong class="text-white">schody drewniane na wymiar</strong>.
+        Rodzinna firma braci Książczak – ponad 25 lat doświadczenia.
         Obsługujemy Siedlce, Warszawę i okolice w promieniu 100 km.
       </p>
 
       <!-- CTAs -->
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+      <div
+        data-animate
+        style="transition-delay: 240ms"
+        class="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4"
+      >
         <a
           href={PHONE_HREF}
           class="inline-flex items-center justify-center gap-2 rounded-full bg-wood-500 px-7 py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-wood-600 active:scale-95"
@@ -71,7 +89,11 @@ const PHONE_HREF = CONTACT.phoneHref;
       </div>
 
       <!-- Trust signals -->
-      <div class="mt-10 flex flex-wrap gap-6 text-sm text-stone-400">
+      <div
+        data-animate
+        style="transition-delay: 320ms"
+        class="mt-10 flex flex-wrap gap-6 text-sm text-stone-400"
+      >
         <div class="flex items-center gap-2">
           <svg class="h-5 w-5 text-green-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
@@ -100,11 +122,11 @@ const PHONE_HREF = CONTACT.phoneHref;
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
           { value: '25+', label: 'lat doświadczenia' },
-          { value: '100%', label: 'bezpyłowa technologia' },
+          { value: '1000+', label: 'realizacji' },
           { value: '100 km', label: 'zasięg od Siedlec' },
           { value: '5★', label: 'ocena klientów' },
-        ].map(stat => (
-          <div class="text-center">
+        ].map((stat, i) => (
+          <div class="text-center" data-animate style={`transition-delay: ${400 + i * 80}ms`}>
             <div class="text-2xl font-bold text-wood-400 sm:text-3xl">{stat.value}</div>
             <div class="mt-0.5 text-xs text-stone-400 sm:text-sm">{stat.label}</div>
           </div>

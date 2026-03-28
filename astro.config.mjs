@@ -9,7 +9,11 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap(),
+    sitemap({
+      changefreq: 'monthly',
+      priority: 0.8,
+      lastmod: new Date(),
+    }),
   ],
   compressHTML: true,
   build: {

@@ -49,38 +49,18 @@ const cities = [
         </div>
       </div>
 
-      <!-- Map placeholder / embed -->
-      <div class="overflow-hidden rounded-2xl shadow-md ring-1 ring-stone-100">
-        <!--
-          Replace with real Google Maps embed:
-          1. Go to google.com/maps
-          2. Search your address in Siedlce
-          3. Click "Share" → "Embed a map" → Copy iframe
-          4. Replace the div below with the iframe
-        -->
-        <div class="relative flex h-80 items-center justify-center bg-gradient-to-br from-stone-100 to-stone-200 lg:h-96" aria-label="Mapa obszaru obsługi – Siedlce i okolice">
-          <!-- Placeholder if no map configured -->
-          <div class="text-center text-stone-400">
-            <svg class="mx-auto h-12 w-12 opacity-40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-            <p class="mt-2 text-sm font-medium">Siedlce, woj. mazowieckie</p>
-            <p class="text-xs">Zasięg 100 km</p>
-          </div>
-          <!--
-          EXAMPLE MAP EMBED (uncomment and replace src):
-          <iframe
-            src="https://www.google.com/maps/embed?..."
-            width="100%"
-            height="100%"
-            style="border:0; position:absolute; inset:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Mapa – Książczak Parkiety Siedlce"
-          ></iframe>
-          -->
-        </div>
+      <!-- Google Maps embed -->
+      <div class="overflow-hidden rounded-2xl shadow-md ring-1 ring-stone-100 h-80 lg:h-96">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.762608617142!2d22.522501477069145!3d52.21136137198201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa9e14da7f4ba4b07%3A0x3d7acf69497a4821!2sKsi%C4%85%C5%BCczak%20Parkiety%20i%20Schody%20%7C%20Cyklinowanie%20i%20uk%C5%82adanie%20pod%C5%82%C3%B3g%20drewnianych!5e0!3m2!1spl!2spl!4v1774719026645!5m2!1spl!2spl"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Książczak Parkiety i Schody – lokalizacja na mapie"
+        ></iframe>
       </div>
     </div>
   </div>

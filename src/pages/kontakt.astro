@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { localBusinessSchema } from '../components/SchemaOrg.astro';
-import { CONTACT, ADDRESS } from '../config';
+import { CONTACT } from '../config';
 
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
@@ -24,9 +24,9 @@ const EMAIL = CONTACT.email;
           <li class="text-stone-600" aria-current="page">Kontakt</li>
         </ol>
       </nav>
-      <h1 class="text-4xl font-extrabold text-stone-900 sm:text-5xl">Skontaktuj się z nami</h1>
-      <p class="mt-4 max-w-2xl text-lg text-stone-600 leading-relaxed">
-        Zadzwoń lub wyślij wiadomość. Bezpłatnie dojedziemy na oględziny i przygotujemy wycenę.
+      <h1 class="text-3xl font-bold text-stone-900 sm:text-4xl" data-animate>Skontaktuj się z nami</h1>
+      <p class="mt-4 max-w-2xl text-lg text-stone-600 leading-relaxed" data-animate style="transition-delay: 80ms">
+        Najlepiej zadzwoń – to najszybszy sposób. Bezpłatnie dojedziemy na oględziny i przygotujemy wycenę.
       </p>
     </div>
   </section>
@@ -37,9 +37,18 @@ const EMAIL = CONTACT.email;
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
 
         <!-- Contact form -->
-        <div>
+        <div data-animate>
           <h2 class="text-2xl font-bold text-stone-900">Formularz kontaktowy</h2>
           <p class="mt-2 text-sm text-stone-500">Odpiszemy w ciągu kilku godzin w dni robocze.</p>
+
+          <div class="mt-4 flex items-start gap-3 rounded-xl bg-amber-50 px-4 py-3 ring-1 ring-amber-200">
+            <svg class="h-5 w-5 text-amber-500 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            <p class="text-sm text-amber-800">
+              <strong>Wolisz szybką odpowiedź?</strong> Zadzwoń bezpośrednio – <a href={PHONE_HREF} class="font-semibold underline hover:text-amber-900">{PHONE}</a>. Odbieramy i odpowiadamy od ręki.
+            </p>
+          </div>
 
           <form
             id="contact-form"
@@ -148,7 +157,7 @@ const EMAIL = CONTACT.email;
         </div>
 
         <!-- Contact info -->
-        <div class="space-y-8">
+        <div class="space-y-8" data-animate style="transition-delay: 150ms">
           <div>
             <h2 class="text-2xl font-bold text-stone-900">Dane kontaktowe</h2>
           </div>
@@ -162,9 +171,9 @@ const EMAIL = CONTACT.email;
             </div>
             <div>
               <p class="text-sm font-semibold text-stone-500 uppercase tracking-wider">Telefon</p>
-              <a href={PHONE_HREF} class="mt-1 block text-xl font-bold text-stone-900 hover:text-wood-600 transition-colors">{PHONE}</a>
+              <a href={PHONE_HREF} class="mt-1 block text-lg font-semibold text-stone-900 hover:text-wood-600 transition-colors">{PHONE}</a>
               <p class="text-xs text-stone-400">{CONTACT.phoneLabel}</p>
-              <a href={CONTACT.phoneSecondHref} class="mt-2 block text-xl font-bold text-stone-900 hover:text-wood-600 transition-colors">{CONTACT.phoneSecond}</a>
+              <a href={CONTACT.phoneSecondHref} class="mt-2 block text-lg font-semibold text-stone-900 hover:text-wood-600 transition-colors">{CONTACT.phoneSecond}</a>
               <p class="text-xs text-stone-400">{CONTACT.phoneSecondLabel}</p>
               <p class="mt-1 text-sm text-stone-500">Pon–Pt: 7:00–18:00 · Sob: 8:00–14:00</p>
             </div>
@@ -179,7 +188,7 @@ const EMAIL = CONTACT.email;
             </div>
             <div>
               <p class="text-sm font-semibold text-stone-500 uppercase tracking-wider">Email</p>
-              <a href={`mailto:${EMAIL}`} class="mt-1 text-lg font-bold text-stone-900 hover:text-wood-600 transition-colors break-all">{EMAIL}</a>
+              <a href={`mailto:${EMAIL}`} class="mt-1 text-sm font-semibold text-stone-900 hover:text-wood-600 transition-colors break-all">{EMAIL}</a>
             </div>
           </div>
 
@@ -192,7 +201,7 @@ const EMAIL = CONTACT.email;
             </div>
             <div>
               <p class="text-sm font-semibold text-stone-500 uppercase tracking-wider">Lokalizacja</p>
-              <p class="mt-1 text-lg font-bold text-stone-900">ul. 11-go Listopada 61, 08-140 Mordy</p>
+              <p class="mt-1 text-sm font-semibold text-stone-900">ul. 11-go Listopada 61, 08-140 Mordy</p>
               <p class="mt-1 text-sm text-stone-500">woj. mazowieckie · Obsługujemy do 100 km + Warszawa</p>
             </div>
           </div>

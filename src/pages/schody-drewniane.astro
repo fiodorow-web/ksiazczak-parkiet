@@ -1,8 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { localBusinessSchema } from '../components/SchemaOrg.astro';
+import FAQ from '../components/FAQ.astro';
+import { localBusinessSchema, andrzejSchema } from '../components/SchemaOrg.astro';
 import { CONTACT } from '../config';
+import { Image } from 'astro:assets';
+
+const schodMods = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/schody/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+const schodArr = Object.values(schodMods).map(m => m.default);
+const schodHero = schodArr[0] ?? null;
 
 const PHONE = CONTACT.phoneSecond;      // Andrzej – schody
 const PHONE_HREF = CONTACT.phoneSecondHref;
@@ -29,7 +38,7 @@ const stairsSchema = {
 <Layout
   title="Schody Drewniane Siedlce – Montaż, Renowacja | Andrzej Książczak"
   description="Schody drewniane – montaż, produkcja i renowacja. Siedlce, Warszawa i okolice. Andrzej Książczak – 25 lat doświadczenia. ☎ Bezpłatna wycena!"
-  schema={[localBusinessSchema, stairsSchema]}
+  schema={[localBusinessSchema, stairsSchema, andrzejSchema]}
   breadcrumbs={[{ name: 'Schody drewniane', url: '/schody-drewniane' }]}
 >
   <!-- Hero -->
@@ -43,11 +52,11 @@ const stairsSchema = {
             <li class="text-stone-300" aria-current="page">Schody drewniane</li>
           </ol>
         </nav>
-        <h1 class="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+        <h1 class="text-3xl font-bold leading-tight text-white sm:text-4xl" data-animate>
           Schody <span class="text-wood-400">drewniane</span><br/>
           Siedlce i okolice
         </h1>
-        <p class="mt-6 text-lg leading-relaxed text-stone-300">
+        <p class="mt-6 text-lg leading-relaxed text-stone-300" data-animate style="transition-delay: 100ms">
           Produkcja, montaż i renowacja schodów drewnianych. <strong class="text-white">Andrzej Książczak</strong> – specjalista z ponad 25-letnim doświadczeniem. Siedlce, Warszawa i cały region mazowiecki.
         </p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -70,8 +79,8 @@ const stairsSchema = {
     <div class="container-max">
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <h2 class="section-title">Andrzej Książczak – mistrz schodów drewnianych</h2>
-          <div class="mt-6 space-y-4 text-stone-600 leading-relaxed">
+          <h2 class="section-title" data-animate>Andrzej Książczak – mistrz schodów drewnianych</h2>
+          <div class="mt-6 space-y-4 text-stone-600 leading-relaxed" data-animate style="transition-delay: 80ms">
             <p>
               Andrzej Książczak specjalizuje się w <strong class="text-stone-900">projektowaniu i wykonywaniu schodów drewnianych</strong> od ponad 25 lat. Razem z bratem Krzysztofem tworzymy rodzinną firmę, która kompleksowo obsługuje wszystkie potrzeby związane z drewnem w domu.
             </p>
@@ -100,15 +109,8 @@ const stairsSchema = {
           </div>
         </div>
         <div class="relative h-72 lg:h-96 overflow-hidden rounded-2xl bg-stone-100">
-          <img
-            src="/images/schody/schody-glowne.jpg"
-            alt="Schody drewniane wykonane przez Andrzeja Książczaka – Siedlce"
-            class="w-full h-full object-cover"
-            width="600" height="400"
-            loading="lazy"
-            onerror="this.style.display='none'"
-          />
-          <div class="absolute inset-0 flex items-center justify-center text-stone-400 text-sm -z-10">Zdjęcie schodów</div>
+          {schodHero && <Image src={schodHero} alt="Schody drewniane wykonane przez Andrzeja Książczaka – Siedlce" class="w-full h-full object-cover" width={600} height={400} loading="lazy" format="webp" quality={82} />}
+          {!schodHero && <div class="absolute inset-0 flex items-center justify-center text-stone-400 text-sm">Zdjęcie schodów</div>}
         </div>
       </div>
     </div>
@@ -117,7 +119,7 @@ const stairsSchema = {
   <!-- Usługi schodowe -->
   <section class="section-padding bg-stone-50">
     <div class="container-max">
-      <h2 class="section-title text-center">Co oferujemy?</h2>
+      <h2 class="section-title text-center" data-animate>Co oferujemy?</h2>
       <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {[
           {
@@ -150,8 +152,8 @@ const stairsSchema = {
             title: 'Bezpłatne pomiary',
             desc: 'Dojedziemy na miejsce, zmierzymy i wycenimy bez żadnych zobowiązań.',
           },
-        ].map(item => (
-          <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-stone-100">
+        ].map((item, i) => (
+          <article data-animate style={`transition-delay: ${i * 80}ms`} class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-stone-100">
             <div class="text-3xl mb-3" aria-hidden="true">{item.icon}</div>
             <h3 class="text-base font-bold text-stone-900">{item.title}</h3>
             <p class="mt-2 text-sm text-stone-600 leading-relaxed">{item.desc}</p>
@@ -164,26 +166,38 @@ const stairsSchema = {
   <!-- Gallery -->
   <section class="section-padding bg-white">
     <div class="container-max">
-      <h2 class="section-title text-center">Realizacje – schody drewniane</h2>
+      <h2 class="section-title text-center" data-animate>Realizacje – schody drewniane</h2>
+      {schodArr.length > 0 && (
       <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {Array.from({ length: 6 }, (_, i) => (
+        {schodArr.slice(0, 6).map((img, i) => (
           <div class="overflow-hidden rounded-xl bg-stone-100 aspect-square">
-            <img
-              src={`/images/schody/schody-${i + 1}.jpg`}
+            <Image
+              src={img}
               alt={`Schody drewniane – realizacja ${i + 1} – Siedlce i okolice`}
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              width="400" height="400"
+              width={400}
+              height={400}
               loading="lazy"
-              onerror="this.style.display='none'"
+              format="webp"
+              quality={82}
             />
           </div>
         ))}
       </div>
+      )}
       <p class="mt-6 text-center text-sm text-stone-500">
         Więcej realizacji dostępnych na życzenie. <a href="/kontakt" class="text-wood-600 font-medium hover:underline">Skontaktuj się z nami →</a>
       </p>
     </div>
   </section>
+
+  <FAQ items={[
+    { q: 'Z jakiego drewna wykonujecie schody?', a: 'Pracujemy z dębem, jesionem, sosną, bukiem i innymi gatunkami drewna. Dąb to najczęstszy wybór – twardy, odporny i pięknie wyglądający. Pomagamy dobrać gatunek do wnętrza i budżetu.' },
+    { q: 'Ile kosztują schody drewniane na zamówienie?', a: 'Cena zależy od gatunku drewna, wymiarów, rodzaju schodów (proste, kręte, zabiegowe) i wykończenia. Bezpłatna wycena po pomiarach na miejscu – przyjedziemy do Ciebie w Siedlcach, Warszawie i okolicach.' },
+    { q: 'Jak długo trwa wykonanie schodów drewnianych?', a: 'Standardowy projekt – od pomiaru do montażu – trwa 4–8 tygodni, zależnie od złożoności i kolejki zleceń. Schody proste realizujemy szybciej niż kręte. Termin ustalamy indywidualnie.' },
+    { q: 'Czy wykonujecie renowację starych schodów?', a: 'Tak. Andrzej Książczak zajmuje się renowacją starych schodów – szlifowaniem, naprawą pękniętych stopni, wymianą uszkodzonych elementów oraz lakierowaniem lub olejowaniem. Często tańsze niż budowa nowych schodów.' },
+    { q: 'Czy obsługujecie schody w całej Polsce?', a: 'Obsługujemy Siedlce, Warszawę oraz okolice w promieniu ok. 100 km – cały region mazowiecki. W przypadku większych zleceń możliwy dojazd dalej – zapytaj indywidualnie.' },
+  ]} />
 
   <ContactCTA
     title="Zamów schody drewniane"

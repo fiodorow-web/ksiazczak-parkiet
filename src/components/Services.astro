@@ -6,7 +6,7 @@ const services = [
     description: 'Szlifowanie podłóg drewnianych nowoczesną technologią bezpyłową. Brak bałaganu, idealny efekt. Parkiety, deski, mozaika.',
     href: '/cyklinowanie-bezpylowe',
     cta: 'Dowiedz się więcej',
-    featured: true,
+    featured: false,
   },
   {
     icon: `<path d="M7 21H3a1 1 0 01-1-1v-4a1 1 0 011-1h4v6zm7-2H10v-4h4v4zm7 2h-5v-6h4a1 1 0 011 1v4a1 1 0 01-1 1zM12 3l-8 6h4v8h8v-8h4L12 3z"/>`,
@@ -33,6 +33,14 @@ const services = [
     featured: false,
   },
   {
+    icon: `<path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2zm0-4h12v2H3v-2zm0-8h12v2H3V7z"/>`,
+    title: 'Listwowanie',
+    description: 'Montaż listew przypodłogowych drewnianych i MDF. Estetyczne wykończenie podłogi, idealne dopasowanie do wnętrza.',
+    href: '/uslugi#listwowanie',
+    cta: 'Szczegóły',
+    featured: false,
+  },
+  {
     icon: `<path d="M4 20V8l8-5 8 5v12H4zm8-11L7 12v6h10v-6l-5-3zm2 7h-4v-4h4v4z"/>`,
     title: 'Schody drewniane',
     description: 'Produkcja, montaż i renowacja schodów drewnianych. Andrzej Książczak – specjalista od 25 lat.',
@@ -46,47 +54,36 @@ const services = [
 <section class="section-padding bg-stone-50" id="uslugi" aria-labelledby="uslugi-heading">
   <div class="container-max">
     <div class="text-center">
-      <h2 class="section-title" id="uslugi-heading">Nasze usługi</h2>
-      <p class="section-subtitle mx-auto max-w-2xl">
+      <h2 class="section-title" id="uslugi-heading" data-animate>Nasze usługi</h2>
+      <p class="section-subtitle mx-auto max-w-2xl" data-animate style="transition-delay: 80ms">
         Kompleksowa obsługa podłóg drewnianych i schodów. Pracujemy na terenie Siedlec, Warszawy i okolic.
       </p>
     </div>
 
     <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((service) => (
-        <article class={`group relative flex flex-col rounded-2xl p-7 transition-all hover:-translate-y-1 hover:shadow-xl ${
-          service.featured
-            ? 'bg-wood-500 text-white shadow-lg shadow-wood-500/20 ring-2 ring-wood-500'
-            : 'bg-white shadow-sm ring-1 ring-stone-100'
-        }`}>
-          {service.featured && (
-            <div class="mb-3 inline-flex w-fit items-center rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold text-white">
-              Główna usługa
-            </div>
-          )}
-          <div class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${
-            service.featured ? 'bg-white/20' : 'bg-wood-50'
-          }`}>
-            <svg class={`h-6 w-6 ${service.featured ? 'text-white' : 'text-wood-500'}`} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      {services.map((service, i) => (
+        <article
+          data-animate
+          style={`transition-delay: ${i * 80}ms`}
+          class="group relative flex flex-col rounded-2xl p-7 transition-all hover:-translate-y-1 hover:shadow-xl bg-white shadow-sm ring-1 ring-stone-100"
+        >
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-wood-50">
+            <svg class="h-6 w-6 text-wood-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <Fragment set:html={service.icon} />
             </svg>
           </div>
 
-          <h3 class={`text-lg font-bold ${service.featured ? 'text-white' : 'text-stone-900'}`}>
+          <h3 class="text-lg font-bold text-stone-900">
             {service.title}
           </h3>
 
-          <p class={`mt-2 flex-1 text-sm leading-relaxed ${service.featured ? 'text-white/80' : 'text-stone-600'}`}>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-stone-600">
             {service.description}
           </p>
 
           <a
             href={service.href}
-            class={`mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-all ${
-              service.featured
-                ? 'text-white hover:gap-3'
-                : 'text-wood-600 hover:text-wood-700 hover:gap-3'
-            }`}
+            class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-all text-wood-600 hover:text-wood-700 hover:gap-3"
             aria-label={`${service.cta} – ${service.title}`}
           >
             {service.cta}

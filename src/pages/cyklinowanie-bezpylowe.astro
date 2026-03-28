@@ -24,18 +24,6 @@ const serviceSchema = {
     { '@type': 'City', name: 'Warszawa' },
     { '@type': 'State', name: 'Mazowieckie' },
   ],
-  offers: {
-    '@type': 'Offer',
-    priceCurrency: 'PLN',
-    price: '25',
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
-      priceCurrency: 'PLN',
-      price: '25',
-      unitText: 'm²',
-      description: 'Cena od 25 zł/m² w zależności od stanu podłogi',
-    },
-  },
 };
 
 const faqItems = [
@@ -45,7 +33,7 @@ const faqItems = [
   },
   {
     q: 'Ile kosztuje cyklinowanie bezpyłowe?',
-    a: 'Cena zaczyna się od 25 zł/m² za samo szlifowanie. Przy kompleksowym zleceniu (szlifowanie + lakierowanie lub olejowanie) cena wynosi zazwyczaj 50–70 zł/m². Dokładną wycenę przygotowujemy po obejrzeniu podłogi – ta usługa jest bezpłatna.',
+    a: 'Cena zależy od stanu podłogi, jej powierzchni oraz wybranego wykończenia (lakier lub olej). Dokładną wycenę przygotowujemy bezpłatnie po oględzinach podłogi na miejscu. Zadzwoń – chętnie odpowiemy na pytania.',
   },
   {
     q: 'Czy bezpyłowe cyklinowanie jest bezpieczne dla alergików?',
@@ -60,7 +48,7 @@ const faqItems = [
 
 <Layout
   title="Cyklinowanie Bezpyłowe Podłóg – Siedlce, Warszawa | 25 lat | Książczak"
-  description="Cyklinowanie bezpyłowe parkietów i podłóg drewnianych w Siedlcach i Warszawie. Technologia bez pyłu, od 25 zł/m². Ponad 25 lat doświadczenia. ☎ Bezpłatna wycena!"
+  description="Cyklinowanie bezpyłowe parkietów i podłóg drewnianych w Siedlcach i Warszawie. Technologia bez pyłu – ponad 25 lat doświadczenia. ☎ Bezpłatna wycena!"
   schema={[localBusinessSchema, serviceSchema]}
   breadcrumbs={[{ name: 'Cyklinowanie bezpyłowe', url: '/cyklinowanie-bezpylowe' }]}
 >
@@ -75,14 +63,14 @@ const faqItems = [
             <li class="text-stone-300" aria-current="page">Cyklinowanie bezpyłowe</li>
           </ol>
         </nav>
-        <h1 class="text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+        <h1 class="text-3xl font-bold leading-tight text-white sm:text-4xl" data-animate>
           Cyklinowanie <span class="text-wood-400">bezpyłowe</span><br/>
           parkietów i podłóg drewnianych
         </h1>
-        <p class="mt-6 text-lg leading-relaxed text-stone-300">
+        <p class="mt-6 text-lg leading-relaxed text-stone-300" data-animate style="transition-delay: 100ms">
           Nowoczesna technologia bez pyłu – idealna dla rodzin z dziećmi i alergików. Pracujemy w Siedlcach, Warszawie i okolicach. Efekty trwałe, praca staranna.
         </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-animate style="transition-delay: 200ms">
           <a href={PHONE_HREF} class="btn-primary text-base py-4 px-7">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
@@ -102,8 +90,8 @@ const faqItems = [
     <div class="container-max">
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <h2 class="section-title">Na czym polega cyklinowanie bezpyłowe?</h2>
-          <div class="mt-6 space-y-4 text-stone-600 leading-relaxed">
+          <h2 class="section-title" data-animate>Na czym polega cyklinowanie bezpyłowe?</h2>
+          <div class="mt-6 space-y-4 text-stone-600 leading-relaxed" data-animate style="transition-delay: 100ms">
             <p>
               Tradycyjne cyklinowanie wytwarza ogromne ilości pyłu drzewnego, który osiada na meblach, dywanach i sprzętach elektronicznych. Cyklinowanie bezpyłowe korzysta z <strong class="text-stone-900">nowoczesnych maszyn wyposażonych w system wysokociśnieniowego odkurzania</strong>, który wyłapuje ponad 99% pyłu bezpośrednio w miejscu jego powstawania.
             </p>
@@ -121,8 +109,8 @@ const faqItems = [
             { icon: '👨‍👩‍👧', title: 'Bezpieczne dla rodziny', desc: 'Idealne dla dzieci, alergików i astmatyków' },
             { icon: '⚡', title: 'Szybka realizacja', desc: 'Salon (20–30 m²) gotowy w ciągu jednego dnia' },
             { icon: '🏠', title: 'Bez przeprowadzki', desc: 'Nie musisz opuszczać domu na czas pracy' },
-          ].map(card => (
-            <div class="rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100">
+          ].map((card, i) => (
+            <div data-animate style={`transition-delay: ${i * 80}ms`} class="rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100">
               <div class="text-3xl" aria-hidden="true">{card.icon}</div>
               <p class="mt-2 text-sm font-semibold text-stone-900">{card.title}</p>
               <p class="mt-1 text-xs text-stone-600 leading-snug">{card.desc}</p>
@@ -136,16 +124,16 @@ const faqItems = [
   <!-- Typy podłóg -->
   <section class="section-padding bg-stone-50">
     <div class="container-max">
-      <h2 class="section-title text-center">Jakie podłogi cyklinujemy?</h2>
-      <p class="section-subtitle text-center mx-auto max-w-xl">
+      <h2 class="section-title text-center" data-animate>Jakie podłogi cyklinujemy?</h2>
+      <p class="section-subtitle text-center mx-auto max-w-xl" data-animate style="transition-delay: 80ms">
         Pracujemy ze wszystkimi podłogami z litego drewna i drewna warstwowego.
       </p>
       <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {[
           'Parkiet dębowy', 'Deski sosnowe', 'Mozaika parkietowa',
           'Jesion', 'Buk', 'Bambus i egzotyki',
-        ].map(type => (
-          <div class="rounded-xl bg-white p-4 text-center shadow-sm ring-1 ring-stone-100">
+        ].map((type, i) => (
+          <div data-animate style={`transition-delay: ${i * 60}ms`} class="rounded-xl bg-white p-4 text-center shadow-sm ring-1 ring-stone-100">
             <p class="text-sm font-medium text-stone-800">{type}</p>
           </div>
         ))}
@@ -159,7 +147,7 @@ const faqItems = [
   <!-- Etapy pracy -->
   <section class="section-padding bg-white">
     <div class="container-max">
-      <h2 class="section-title text-center">Etapy cyklinowania</h2>
+      <h2 class="section-title text-center" data-animate>Etapy cyklinowania</h2>
       <div class="mt-10 space-y-6 max-w-2xl mx-auto">
         {[
           { n: 1, title: 'Przygotowanie podłogi', desc: 'Sprawdzamy stan podłogi, usuwamy wystające gwoździe, oceniamy czy wymagane jest szpachlowanie szpar.' },
@@ -167,8 +155,8 @@ const faqItems = [
           { n: 3, title: 'Szlifowanie pośrednie (papier 60–80)', desc: 'Wygładzamy powierzchnię i eliminujemy rysy po poprzednim papierze.' },
           { n: 4, title: 'Szpachlowanie i szlif końcowy (papier 100–120)', desc: 'Wypełniamy szpary masą parkietową, finalne wygładzenie powierzchni.' },
           { n: 5, title: 'Wykończenie (lakier lub olej)', desc: 'Nakładamy 2–3 warstwy lakieru wodnego/olejowego lub oleju według wyboru klienta.' },
-        ].map(step => (
-          <div class="flex gap-5">
+        ].map((step, i) => (
+          <div class="flex gap-5" data-animate style={`transition-delay: ${i * 80}ms`}>
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-wood-500 text-sm font-bold text-white">{step.n}</div>
             <div class="pb-6 border-b border-stone-100 last:border-0 flex-1">
               <p class="font-semibold text-stone-900">{step.title}</p>
