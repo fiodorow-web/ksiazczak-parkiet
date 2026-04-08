@@ -1,56 +1,64 @@
 ---
 const cities = [
-  { name: 'Siedlce', primary: true, desc: 'Siedziba firmy' },
-  { name: 'Warszawa', primary: true, desc: '~100 km' },
-  { name: 'Mińsk Mazowiecki', primary: false, desc: '~60 km' },
-  { name: 'Łuków', primary: false, desc: '~40 km' },
-  { name: 'Sokołów Podlaski', primary: false, desc: '~40 km' },
-  { name: 'Biała Podlaska', primary: false, desc: '~80 km' },
-  { name: 'Garwolin', primary: false, desc: '~70 km' },
-  { name: 'Ostrów Mazowiecka', primary: false, desc: '~80 km' },
-  { name: 'Węgrów', primary: false, desc: '~30 km' },
-  { name: 'Mordy', primary: false, desc: '~25 km' },
+  { name: "Siedlce", primary: true, desc: "Siedziba firmy" },
+  { name: "Warszawa", primary: true, desc: "~100 km" },
+  { name: "Mińsk Mazowiecki", primary: false, desc: "~60 km" },
+  { name: "Łuków", primary: false, desc: "~40 km" },
+  { name: "Sokołów Podlaski", primary: false, desc: "~40 km" },
+  { name: "Biała Podlaska", primary: false, desc: "~80 km" },
+  { name: "Garwolin", primary: false, desc: "~70 km" },
+  { name: "Ostrów Mazowiecka", primary: false, desc: "~80 km" },
+  { name: "Węgrów", primary: false, desc: "~30 km" },
+  { name: "Mordy", primary: false, desc: "~25 km" },
 ];
 ---
 
-<section class="section-padding bg-white" id="obszar" aria-labelledby="area-heading">
+<section
+  class="section-padding bg-white"
+  id="obszar"
+  aria-labelledby="area-heading"
+>
   <div class="container-max">
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
       <!-- Text -->
       <div>
         <h2 class="section-title" id="area-heading">Obszar działania</h2>
         <p class="section-subtitle max-w-lg">
-          Obsługujemy <strong>Siedlce i okolice w promieniu 100 km</strong>. Regularnie pracujemy też na terenie <strong>Warszawy i całego Mazowsza</strong>.
+          Obsługujemy <strong>Siedlce i okolice w promieniu 150 km</strong>.
+          Regularnie pracujemy też na terenie <strong
+            >Warszawy i całego Mazowsza</strong
+          >.
         </p>
 
         <div class="mt-8 flex flex-wrap gap-2">
-          {cities.map((city) => (
-            <span class={`inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium ${
-              city.primary
-                ? 'bg-wood-500 text-white'
-                : 'bg-stone-100 text-stone-700'
-            }`}>
-              {city.name}
-              {city.primary && (
-                <span class="ml-1.5 text-xs opacity-75">★</span>
-              )}
-            </span>
-          ))}
-          <span class="inline-flex items-center rounded-full bg-stone-50 px-3 py-1.5 text-sm text-stone-500 ring-1 ring-dashed ring-stone-300">
+          {
+            cities.map((city) => (
+              <span
+                class={`inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium ${
+                  city.primary
+                    ? "bg-wood-500 text-white"
+                    : "bg-stone-100 text-stone-700"
+                }`}
+              >
+                {city.name}
+                {city.primary && (
+                  <span class="ml-1.5 text-xs opacity-75">★</span>
+                )}
+              </span>
+            ))
+          }
+          <span
+            class="inline-flex items-center rounded-full bg-stone-50 px-3 py-1.5 text-sm text-stone-500 ring-1 ring-dashed ring-stone-300"
+          >
             + okolice...
           </span>
-        </div>
-
-        <div class="mt-8 rounded-xl bg-stone-50 p-5 text-sm text-stone-600 leading-relaxed ring-1 ring-stone-100">
-          <p>
-            <strong class="text-stone-900">Dojazd:</strong> W przypadku zleceń na terenie Siedlec i okolic (do 40 km) dojazd jest <strong>bezpłatny</strong>.
-            Dla dalszych lokalizacji (Warszawa, Biała Podlaska) koszt dojazdu ustalamy indywidualnie.
-          </p>
         </div>
       </div>
 
       <!-- Google Maps embed -->
-      <div class="overflow-hidden rounded-2xl shadow-md ring-1 ring-stone-100 h-80 lg:h-96">
+      <div
+        class="overflow-hidden rounded-2xl shadow-md ring-1 ring-stone-100 h-80 lg:h-96"
+      >
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.762608617142!2d22.522501477069145!3d52.21136137198201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa9e14da7f4ba4b07%3A0x3d7acf69497a4821!2sKsi%C4%85%C5%BCczak%20Parkiety%20i%20Schody%20%7C%20Cyklinowanie%20i%20uk%C5%82adanie%20pod%C5%82%C3%B3g%20drewnianych!5e0!3m2!1spl!2spl!4v1774719026645!5m2!1spl!2spl"
           width="100%"
@@ -59,8 +67,7 @@ const cities = [
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Książczak Parkiety i Schody – lokalizacja na mapie"
-        ></iframe>
+          title="Książczak Parkiety i Schody – lokalizacja na mapie"></iframe>
       </div>
     </div>
   </div>

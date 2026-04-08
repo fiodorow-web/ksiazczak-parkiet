@@ -1,30 +1,27 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import heroImg from '../assets/hero.jpg';
 import { CONTACT } from '../config';
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
+
+const optimizedBg = await getImage({ src: heroImg, format: 'webp', width: 1920, quality: 80 });
 ---
 
-<section class="relative overflow-hidden bg-stone-900">
-  <!-- Background image / gradient -->
-  <div class="absolute inset-0 z-0">
-    <Image
-      src={heroImg}
-      alt="Piękna drewniana podłoga po cyklinowaniu bezpyłowym – Książczak Parkiety Siedlce"
-      class="h-full w-full object-cover object-center"
-      width={1920}
-      height={700}
-      format="webp"
-      quality={80}
-      fetchpriority="high"
-      loading="eager"
-    />
-    <!-- Overlay gradient -->
-    <div class="absolute inset-0 bg-gradient-to-r from-stone-900/75 via-stone-900/50 to-stone-900/25"></div>
-    <!-- Fallback gradient if no image -->
-    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-stone-800 via-stone-900 to-wood-900"></div>
-  </div>
+<section 
+  class="relative overflow-hidden bg-stone-900"
+>
+  <!-- Fallback gradient if no image -->
+  <div class="absolute inset-0 bg-gradient-to-br from-stone-800 via-stone-900 to-wood-900"></div>
+
+  <!-- Parallax Background -->
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+    style={`background-image: url('${optimizedBg.src}');`}
+  ></div>
+
+  <!-- Overlay gradient -->
+  <div class="absolute inset-0 bg-gradient-to-r from-stone-900/70 via-stone-900/40 to-transparent"></div>
 
   <div class="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
     <div class="max-w-3xl">

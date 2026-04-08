@@ -118,6 +118,163 @@ if (breadcrumbs && breadcrumbs.length > 0) {
     </main>
     <Footer />
     <StickyPhone />
+
+    <!-- Lightbox Fullscreen -->
+    <div id="lightbox" class="lightbox-overlay" aria-hidden="true" role="dialog" aria-label="Galeria zdjęć">
+      <div class="lightbox-backdrop"></div>
+
+      <!-- Close -->
+      <button id="lb-close" class="lightbox-btn lightbox-close" aria-label="Zamknij">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Prev -->
+      <button id="lb-prev" class="lightbox-btn lightbox-prev" aria-label="Poprzednie zdjęcie">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <!-- Next -->
+      <button id="lb-next" class="lightbox-btn lightbox-next" aria-label="Następne zdjęcie">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Image container -->
+      <div class="lightbox-image-wrap">
+        <img id="lb-img" src="" alt="Powiększenie zdjęcia" />
+      </div>
+
+      <!-- Counter -->
+      <div id="lb-counter" class="lightbox-counter"></div>
+    </div>
+
+    <style is:global>
+      /* ─── Lightbox Overlay ─── */
+      .lightbox-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; visibility: hidden;
+        transition: opacity .35s cubic-bezier(.4,0,.2,1), visibility 0s .35s;
+      }
+      .lightbox-overlay.is-open {
+        opacity: 1; visibility: visible;
+        transition: opacity .35s cubic-bezier(.4,0,.2,1), visibility 0s 0s;
+      }
+
+      .lightbox-backdrop {
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,.94);
+      }
+
+      /* ─── Image ─── */
+      .lightbox-image-wrap {
+        position: relative; z-index: 1;
+        display: flex; align-items: center; justify-content: center;
+        width: 100%; height: 100%;
+        padding: 2.5rem 4.5rem;
+      }
+      .lightbox-image-wrap img {
+        max-width: 95vw; max-height: 92vh;
+        object-fit: contain;
+        border-radius: .75rem;
+        box-shadow: 0 25px 60px rgba(0,0,0,.6);
+        transform: scale(.92); opacity: 0;
+        transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+      }
+      .lightbox-overlay.is-open .lightbox-image-wrap img {
+        transform: scale(1); opacity: 1;
+      }
+      .lightbox-image-wrap img.lb-switching {
+        transform: scale(.96); opacity: 0;
+        transition: transform .18s ease, opacity .15s ease;
+      }
+
+      /* ─── Buttons shared ─── */
+      .lightbox-btn {
+        position: absolute; z-index: 10;
+        display: flex; align-items: center; justify-content: center;
+        border: none; cursor: pointer;
+        color: rgba(255,255,255,.75);
+        background: rgba(255,255,255,.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 50%;
+        transition: color .2s, background .2s, transform .2s;
+      }
+      .lightbox-btn:hover {
+        color: #fff;
+        background: rgba(255,255,255,.18);
+        transform: scale(1.08);
+      }
+      .lightbox-btn:active { transform: scale(.95); }
+      .lightbox-btn svg { width: 50%; height: 50%; }
+
+      /* Close */
+      .lightbox-close {
+        top: 1rem; right: 1rem;
+        width: 2.75rem; height: 2.75rem;
+      }
+
+      /* Prev / Next */
+      .lightbox-prev, .lightbox-next {
+        top: 50%; width: 3.25rem; height: 3.25rem;
+        transform: translateY(-50%);
+      }
+      .lightbox-prev:hover, .lightbox-next:hover { transform: translateY(-50%) scale(1.08); }
+      .lightbox-prev:active, .lightbox-next:active { transform: translateY(-50%) scale(.95); }
+      .lightbox-prev { left: 1rem; }
+      .lightbox-next { right: 1rem; }
+
+      /* Counter */
+      .lightbox-counter {
+        position: absolute; bottom: 1.25rem; left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        font-family: 'Inter', sans-serif;
+        font-size: .8rem; font-weight: 500;
+        letter-spacing: .08em;
+        color: rgba(255,255,255,.55);
+        background: rgba(0,0,0,.35);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        padding: .35rem 1rem;
+        border-radius: 9999px;
+      }
+
+      /* ─── Gallery hover effect ─── */
+      .gallery-item {
+        position: relative; overflow: hidden;
+        border-radius: .75rem;
+        cursor: pointer;
+      }
+      .gallery-item::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 50%);
+        opacity: 0;
+        transition: opacity .35s ease;
+        pointer-events: none;
+        border-radius: .75rem;
+      }
+      .gallery-item:hover::after { opacity: 1; }
+
+      .gallery-item img {
+        transition: transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease !important;
+      }
+      .gallery-item:hover img {
+        transform: scale(1.06) !important;
+        filter: brightness(1.05);
+      }
+
+      /* mobile */
+      @media (max-width: 640px) {
+        .lightbox-image-wrap { padding: 3rem 1rem; }
+        .lightbox-prev, .lightbox-next { width: 2.5rem; height: 2.5rem; }
+        .lightbox-prev { left: .5rem; }
+        .lightbox-next { right: .5rem; }
+        .lightbox-close { top: .75rem; right: .75rem; width: 2.25rem; height: 2.25rem; }
+      }
+    </style>
+
     <script is:inline>
       function initAnimations() {
         const elements = document.querySelectorAll('[data-animate]:not(.in-view)');
@@ -135,14 +292,92 @@ if (breadcrumbs && breadcrumbs.length > 0) {
         );
         elements.forEach((el) => observer.observe(el));
       }
-      // Run on initial load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAnimations);
-      } else {
-        initAnimations();
+
+      function initLightbox() {
+        const overlay = document.getElementById('lightbox');
+        const img     = document.getElementById('lb-img');
+        const counter = document.getElementById('lb-counter');
+        const btnClose = document.getElementById('lb-close');
+        const btnPrev  = document.getElementById('lb-prev');
+        const btnNext  = document.getElementById('lb-next');
+        if (!overlay || !img) return;
+
+        let items = [];
+        let current = 0;
+
+        function collectImages() {
+          items = Array.from(document.querySelectorAll('.gallery-image-click'));
+        }
+
+        function showImage(index) {
+          if (!items.length) return;
+          current = (index + items.length) % items.length;
+          // switch animation
+          img.classList.add('lb-switching');
+          setTimeout(() => {
+            img.src = items[current].getAttribute('src') || '';
+            img.alt = items[current].getAttribute('alt') || 'Zdjęcie realizacji';
+            img.classList.remove('lb-switching');
+          }, 160);
+          if (counter) counter.textContent = (current + 1) + ' / ' + items.length;
+        }
+
+        function openLB(index) {
+          collectImages();
+          current = index;
+          img.src = items[current].getAttribute('src') || '';
+          img.alt = items[current].getAttribute('alt') || 'Zdjęcie realizacji';
+          if (counter) counter.textContent = (current + 1) + ' / ' + items.length;
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeLB() {
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        // Attach click to each gallery image
+        collectImages();
+        items.forEach((el, i) => {
+          el.style.cursor = 'pointer';
+          el.addEventListener('click', () => openLB(i));
+        });
+
+        // Buttons
+        if (btnClose) btnClose.addEventListener('click', closeLB);
+        if (btnPrev)  btnPrev.addEventListener('click',  () => showImage(current - 1));
+        if (btnNext)  btnNext.addEventListener('click',  () => showImage(current + 1));
+
+        // Backdrop click
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay || e.target.classList.contains('lightbox-backdrop') || e.target.classList.contains('lightbox-image-wrap')) {
+            closeLB();
+          }
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+          if (!overlay.classList.contains('is-open')) return;
+          if (e.key === 'Escape')      closeLB();
+          if (e.key === 'ArrowLeft')   showImage(current - 1);
+          if (e.key === 'ArrowRight')  showImage(current + 1);
+        });
       }
-      // Re-run after Astro client-side navigation (View Transitions)
-      document.addEventListener('astro:page-load', initAnimations);
+
+      function initAll() {
+        initAnimations();
+        initLightbox();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+      } else {
+        initAll();
+      }
+      document.addEventListener('astro:page-load', initAll);
     </script>
   </body>
 </html>

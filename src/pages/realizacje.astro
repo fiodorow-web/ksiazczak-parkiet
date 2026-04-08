@@ -10,6 +10,8 @@ const schodMods = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 const schodArr = Object.values(schodMods).map(m => m.default);
+const schodInitial = 8;
+const schodHasMore = schodArr.length > schodInitial;
 ---
 
 <Layout
@@ -40,7 +42,7 @@ const schodArr = Object.values(schodMods).map(m => m.default);
     <div class="container-max">
       <h2 class="section-title" data-animate>Podłogi drewniane</h2>
       <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">Cyklinowanie bezpyłowe, lakierowanie, olejowanie i układanie parkietu.</p>
-      <Gallery limit={12} showLink={false} />
+      <Gallery initialShow={12} showLink={false} />
     </div>
   </section>
 
@@ -50,19 +52,22 @@ const schodArr = Object.values(schodMods).map(m => m.default);
       <h2 class="section-title" data-animate>Schody drewniane</h2>
       <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">Schody drewniane wykonane i odrestaurowane w Siedlcach i okolicach.</p>
       {schodArr.length > 0 ? (
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" id="schody-grid">
           {schodArr.map((img, i) => (
             <div
-              class="overflow-hidden rounded-xl bg-stone-100 aspect-square"
+              class:list={[
+                'gallery-item bg-stone-100 aspect-square',
+                i >= schodInitial && 'gallery-hidden'
+              ]}
               data-animate
               style={`transition-delay: ${Math.min(i * 60, 400)}ms`}
             >
               <Image
                 src={img}
                 alt={`Schody drewniane – realizacja ${i + 1}`}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                width={400}
-                height={400}
+                class="w-full h-full object-cover gallery-image-click"
+                width={1200}
+                height={1200}
                 loading="lazy"
                 format="webp"
                 quality={82}
@@ -72,6 +77,20 @@ const schodArr = Object.values(schodMods).map(m => m.default);
         </div>
       ) : (
         <p class="text-stone-400 text-sm">Zdjęcia pojawią się wkrótce.</p>
+      )}
+      {schodHasMore && (
+        <div class="mt-8 text-center">
+          <button
+            class="btn-secondary gallery-show-more"
+            data-gallery="schody-grid"
+            type="button"
+          >
+            Pokaż więcej
+            <svg class="h-4 w-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   </section>

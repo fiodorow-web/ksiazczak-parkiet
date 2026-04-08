@@ -64,11 +64,8 @@ const aboutPageSchema = {
           </div>
         </div>
         <div class="relative overflow-hidden rounded-2xl bg-stone-100 h-72 lg:h-96" data-animate="fade" style="transition-delay: 200ms">
-          <!-- Placeholder – podmień na własne zdjęcie -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-stone-100 to-stone-200 text-stone-400">
-            <svg class="h-16 w-16 mb-3 text-stone-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-            <span class="text-sm">Twoje zdjęcie firmy</span>
-          </div>
+          <!-- Tymczasowe logo do momentu wrzucenia zdjęcia firmy -->
+          <img src="/parkiety-logo-czarne.png" alt="Książczak Parkiety i Schody" class="absolute inset-0 w-full h-full object-contain object-center p-12 lg:p-16 bg-white" />
         </div>
       </div>
     </div>
@@ -201,7 +198,7 @@ const aboutPageSchema = {
         {[
           { value: '25+', label: 'lat doświadczenia', sublabel: 'od 1999 roku' },
           { value: '1000+', label: 'zrealizowanych zleceń', sublabel: 'podłogi i schody' },
-          { value: '100 km', label: 'zasięg od Siedlec', sublabel: 'w tym Warszawa' },
+          { value: '150 km', label: 'zasięg od Siedlec', sublabel: 'w tym Warszawa' },
           { value: '5.0★', label: 'ocena klientów', sublabel: 'Google Reviews' },
         ].map((stat, i) => (
           <div class="text-center" data-animate style={`transition-delay: ${i * 80}ms`}>
