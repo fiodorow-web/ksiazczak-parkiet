@@ -121,7 +121,7 @@ const serviceSchema = {
         <div class="grid grid-cols-2 gap-4">
           {miasto.korzysci.map((card, i) => (
             <div data-animate style={`transition-delay: ${i * 80}ms`} class="rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100">
-              <div class="text-3xl" aria-hidden="true">{card.icon}</div>
+              <svg class="mx-auto h-8 w-8 text-wood-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={card.icon} /></svg>
               <p class="mt-2 text-sm font-semibold text-stone-900">{card.title}</p>
               <p class="mt-1 text-xs text-stone-600 leading-snug">{card.desc}</p>
             </div>

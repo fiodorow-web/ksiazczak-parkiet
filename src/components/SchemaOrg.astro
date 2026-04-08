@@ -121,17 +121,6 @@ export const krzysztofSchema = {
   url: SITE.url,
 };
 
-export const andrzejSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Andrzej Książczak',
-  jobTitle: 'Mistrz stolarz – schody drewniane',
-  description: 'Specjalista produkcji, montażu i renowacji schodów drewnianych z ponad 25-letnim doświadczeniem.',
-  telephone: CONTACT.phoneSecondHref.replace('tel:', ''),
-  worksFor: { '@id': `${SITE.url}/#business` },
-  url: `${SITE.url}/schody-drewniane`,
-};
-
 export const howToSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',

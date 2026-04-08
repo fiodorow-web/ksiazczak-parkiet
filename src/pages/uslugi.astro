@@ -49,7 +49,7 @@ const imgs = {
       </nav>
       <h1 class="text-2xl font-bold text-stone-900 sm:text-4xl" data-animate>Nasze usługi parkieciarskie</h1>
       <p class="mt-4 max-w-2xl text-base text-stone-600 leading-relaxed sm:text-lg" data-animate style="transition-delay: 100ms">
-        Kompleksowa obsługa podłóg drewnianych i schodów – od cyklinowania bezpyłowego, przez lakierowanie i olejowanie, po układanie nowych parkietów i schody drewniane na wymiar.
+        Kompleksowa obsługa podłóg drewnianych i schodów – od cyklinowania bezpyłowego, przez lakierowanie i olejowanie, po układanie nowych parkietów i montowanie schodów drewnianych na wymiar.
       </p>
     </div>
   </section>
@@ -75,10 +75,6 @@ const imgs = {
                 {type}
               </div>
             ))}
-          </div>
-          <div class="mt-6 rounded-xl bg-stone-50 p-4 ring-1 ring-stone-100">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-wood-600 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Dojedziemy na oględziny i bezpłatnie ocenimy stan podłogi.</p>
           </div>
         </div>
         <div class="relative overflow-hidden rounded-2xl bg-stone-100 h-72 lg:h-96" data-animate="fade" style="transition-delay: 200ms">
@@ -119,10 +115,6 @@ const imgs = {
               </div>
             ))}
           </div>
-          <div class="mt-6 rounded-xl bg-stone-50 p-4 ring-1 ring-stone-100">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-wood-600 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Zazwyczaj 2–3 warstwy. Dokładna wycena po oględzinach.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -142,14 +134,10 @@ const imgs = {
             <p>
               Olejowanie to <strong class="text-stone-900">naturalna alternatywa dla lakieru</strong>. Olej wnika w strukturę drewna, odżywiając je od środka i podkreślając naturalne usłojenie. Podłoga oddycha i ma ciepły, matowy wygląd.
             </p>
-            <p>
-              Największą zaletą olejowania jest <strong class="text-stone-900">łatwa naprawa miejscowych uszkodzeń</strong> – zarysowane miejsca można odnawiać punktowo, bez konieczności szlifowania całej podłogi.
-            </p>
           </div>
           <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {[
               { label: 'Naturalny wygląd', desc: 'Podkreśla usłojenie drewna' },
-              { label: 'Punktowa naprawa', desc: 'Bez szlifowania całości' },
               { label: 'Eco-friendly', desc: 'Niskie VOC, przyjazne środowisku' },
               { label: 'Ciepło w dotyku', desc: 'Brak plastikowego efektu' },
             ].map(item => (
@@ -161,10 +149,6 @@ const imgs = {
                 </div>
               </div>
             ))}
-          </div>
-          <div class="mt-6 rounded-xl bg-amber-50 p-4 ring-1 ring-amber-100">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-amber-700 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Wycena po oględzinach podłogi. Nakładamy 2 warstwy oleju.</p>
           </div>
         </div>
         <div class="relative overflow-hidden rounded-2xl bg-stone-100 h-72 lg:h-96" data-animate="fade" style="transition-delay: 200ms">
@@ -190,24 +174,20 @@ const imgs = {
           </div>
           <h2 class="section-title" data-animate>Układanie parkietu i desek drewnianych</h2>
           <div class="mt-6 space-y-4 text-stone-600 leading-relaxed" data-animate style="transition-delay: 80ms">
-            <p>
-              Instalujemy nowe podłogi drewniane w każdym wzorze i gatunku drewna. Doradzamy w doborze materiału, układamy i wykańczamy – kompleksowo, od podłoża po gotową podłogę.
+            <p>  
+              Instalujemy nowe podłogi drewniane w różnych wzorach i gatunkach drewna. Doradzamy w doborze materiału, układamy i wykańczamy – kompleksowo, od podłoża po gotową podłogę.
             </p>
             <p>
-              Pracujemy z <strong class="text-stone-900">parkietem lamelowym, deskami litymi i warstwowymi oraz mozaiką parkietową</strong>. Układamy jodełkę, cegiełkę, karo i inne wzory.
+              Pracujemy z parkietem, deskami litymi i warstwowymi. Układamy jodełkę, cegiełkę, karo i inne wzory.
             </p>
           </div>
           <div class="mt-6 grid grid-cols-2 gap-3">
-            {['Parkiet lamelowy', 'Deski drewniane', 'Mozaika parkietowa', 'Jodełka i cegiełka'].map(type => (
+            {['Parkiet', 'Deski drewniane', 'Mozaika parkietowa', 'Jodełka i cegiełka'].map(type => (
               <div class="flex items-center gap-2 text-sm text-stone-700">
                 <svg class="h-4 w-4 text-green-500 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                 {type}
               </div>
             ))}
-          </div>
-          <div class="mt-6 rounded-xl bg-white p-4 ring-1 ring-stone-200">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-wood-600 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Doradzamy gatunek drewna i wzór dopasowany do wnętrza.</p>
           </div>
         </div>
       </div>
@@ -240,10 +220,6 @@ const imgs = {
               </div>
             ))}
           </div>
-          <div class="mt-6 rounded-xl bg-stone-100 p-4 ring-1 ring-stone-200">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-wood-600 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Cena zależy od rodzaju listwy i długości. Wycena po oględzinach.</p>
-          </div>
         </div>
         <div class="relative overflow-hidden rounded-2xl bg-stone-100 h-72 lg:h-96" data-animate="fade" style="transition-delay: 200ms">
           {imgs.listwowanie && <Image src={imgs.listwowanie} alt="Montaż listew przypodłogowych – Książczak Parkiety" class="w-full h-full object-cover" width={600} height={400} loading="lazy" format="webp" quality={82} />}
@@ -260,15 +236,15 @@ const imgs = {
         <div>
           <div class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-4 py-1.5 text-sm font-medium text-stone-700 mb-5">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 20V8l8-5 8 5v12H4zm8-11L7 12v6h10v-6l-5-3zm2 7h-4v-4h4v4z"/></svg>
-            Andrzej Książczak
+            Specjalność firmy
           </div>
           <h2 class="section-title" data-animate>Schody drewniane</h2>
           <div class="mt-6 space-y-4 text-stone-600 leading-relaxed" data-animate style="transition-delay: 80ms">
             <p>
-              Produkcja, montaż i renowacja schodów drewnianych – to specjalność <strong class="text-stone-900">Andrzeja Książczaka</strong>, który zajmuje się schodami od ponad 25 lat. Każde schody projektujemy i wykonujemy na wymiar, dopasowując gatunek drewna, konstrukcję i wykończenie do wnętrza i budżetu.
+              Produkcja, montaż i renowacja schodów drewnianych. Każde schody wykonujemy na wymiar, dopasowując gatunek drewna, konstrukcję i wykończenie do wnętrza i budżetu.
             </p>
             <p>
-              Pracujemy z dębem, jesionem, sosną, bukiem i innymi gatunkami. Oprócz nowych schodów wykonujemy też <strong class="text-stone-900">renowację starych stopni</strong> – szlifowanie, naprawa pęknięć, wymiana uszkodzonych elementów, lakierowanie lub olejowanie.
+              Pracujemy z dębem, jesionem, sosną, bukiem i innymi gatunkami. Oprócz nowych schodów wykonujemy też renowację starych stopni – szlifowanie, wymiana uszkodzonych elementów, lakierowanie lub olejowanie.
             </p>
           </div>
           <div class="mt-6 grid grid-cols-2 gap-3">
@@ -279,13 +255,9 @@ const imgs = {
               </div>
             ))}
           </div>
-          <div class="mt-6 rounded-xl bg-stone-100 p-4 ring-1 ring-stone-200">
-            <p class="text-sm font-medium text-stone-900">Bezpłatna wycena – <a href="/kontakt" class="text-wood-600 hover:underline">skontaktuj się z nami</a></p>
-            <p class="text-xs text-stone-500 mt-0.5">Dojedziemy na pomiary i bezpłatnie doradzimy gatunek drewna.</p>
-          </div>
         </div>
         <div class="relative overflow-hidden rounded-2xl bg-stone-100 h-72 lg:h-96" data-animate="fade" style="transition-delay: 200ms">
-          {imgs.schodGlowne && <Image src={imgs.schodGlowne} alt="Schody drewniane na wymiar – Andrzej Książczak" class="w-full h-full object-cover" width={600} height={400} loading="lazy" format="webp" quality={82} />}
+          {imgs.schodGlowne && <Image src={imgs.schodGlowne} alt="Schody drewniane na wymiar – Książczak" class="w-full h-full object-cover" width={600} height={400} loading="lazy" format="webp" quality={82} />}
           {!imgs.schodGlowne && <div class="absolute inset-0 flex items-center justify-center bg-stone-200/50 text-stone-400 text-sm">Zdjęcie schodów</div>}
         </div>
       </div>
