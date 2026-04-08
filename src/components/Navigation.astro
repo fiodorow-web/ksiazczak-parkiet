@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoBlack from '../assets/parkiety-logo-czarne.png';
 import { CONTACT } from '../config';
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
@@ -28,7 +30,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 text-stone-900 hover:text-wood-600 transition-colors" aria-label="Książczak Parkiety i Schody – strona główna">
-        <img src="/parkiety-logo-czarne.png" alt="Książczak Parkiety i Schody" width="160" height="60" class="h-10 w-auto" />
+        <Image src={logoBlack} alt="Książczak Parkiety i Schody" width={160} height={60} class="h-10 w-auto" format="webp" />
       </a>
 
       <!-- Desktop nav -->

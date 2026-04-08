@@ -1,11 +1,11 @@
 ---
 import { getImage } from 'astro:assets';
-import heroImg from '../assets/hero.jpg';
+import heroImg from '../assets/cyklinowanie-bezpylowe-parkiet-drewniany-siedlce.jpg';
 import { CONTACT } from '../config';
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
 
-const optimizedBg = await getImage({ src: heroImg, format: 'webp', width: 1920, quality: 80 });
+const optimizedBg = await getImage({ src: heroImg, format: 'webp', width: 1920, quality: 85 });
 ---
 
 <section 

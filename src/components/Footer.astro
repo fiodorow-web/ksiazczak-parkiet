@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoWhite from '../assets/parkiety-logo-bialy.png';
 import { CONTACT, BUSINESS } from '../config';
 const PHONE = CONTACT.phone;
 const PHONE_HREF = CONTACT.phoneHref;
@@ -13,7 +15,7 @@ const currentYear = new Date().getFullYear();
       <!-- Brand -->
       <div class="sm:col-span-2 lg:col-span-1">
         <a href="/" class="flex items-center gap-2 text-white hover:text-wood-300 transition-colors">
-          <img src="/parkiety-logo-bialy.png" alt="Książczak Parkiety i Schody" width="160" height="60" class="h-10 w-auto" />
+          <Image src={logoWhite} alt="Książczak Parkiety i Schody" width={160} height={60} class="h-10 w-auto" format="webp" />
         </a>
         <p class="mt-4 text-sm leading-relaxed text-stone-400">
           Rodzinna firma z ponad 25-letnim doświadczeniem. Specjalizujemy się w cyklinowaniu bezpyłowym podłóg drewnianych i schodach drewnianych.
