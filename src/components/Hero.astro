@@ -14,9 +14,9 @@ const optimizedBg = await getImage({ src: heroImg, format: 'webp', width: 1920, 
   <!-- Fallback gradient if no image -->
   <div class="absolute inset-0 bg-gradient-to-br from-stone-800 via-stone-900 to-wood-900"></div>
 
-  <!-- Parallax Background -->
-  <div 
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+  <!-- Background image (bg-fixed only on lg+ — iOS Safari nie obsługuje poprawnie background-attachment:fixed) -->
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat lg:bg-fixed"
     style={`background-image: url('${optimizedBg.src}');`}
   ></div>
 
