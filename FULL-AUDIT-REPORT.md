@@ -1,346 +1,335 @@
-# Pełny Audit SEO — Książczak Parkiety i Schody
-**URL:** https://ksiazczak-parkiet.vercel.app/ → https://ksiazczak-parkiet.pl
-**Data audytu:** 2026-03-28
-**Typ biznesu:** Local Service Business (SAB) — firma wyjazdowa, 100 km od Siedlec
-**Branża:** Renowacja podłóg drewnianych, schody drewniane
+# SEO Audit – ksiazczak-parkiet.pl
+**Data audytu:** 2026-04-09  
+**Audytowana strona:** https://ksiazczak-parkiet.vercel.app/ (produkcja: ksiazczak-parkiet.pl)  
+**Typ biznesu:** Local Service Business (SAB) – usługi parkieciarskie, Mazowsze PL  
+**Liczba przeskanowanych stron:** 10 / 10
 
 ---
 
-## Wynik SEO Health Score: 70 / 100
+## 🏆 SEO Health Score: 76 / 100
 
-| Kategoria | Waga | Wynik | Ważony |
-|-----------|------|-------|--------|
+| Kategoria | Waga | Wynik | Składowa |
+|-----------|------|-------|----------|
 | Technical SEO | 22% | 78/100 | 17.2 |
-| Content Quality | 23% | 68/100 | 15.6 |
-| On-Page SEO | 20% | 82/100 | 16.4 |
-| Schema / Structured Data | 10% | 75/100 | 7.5 |
-| Performance (CWV) | 10% | 55/100 | 5.5 |
-| AI Search Readiness | 10% | 52/100 | 5.2 |
-| Images | 5% | 55/100 | 2.75 |
-| **ŁĄCZNIE** | 100% | — | **70.2 / 100** |
+| Content Quality | 23% | 72/100 | 16.6 |
+| On-Page SEO | 20% | 75/100 | 15.0 |
+| Schema / Structured Data | 10% | 85/100 | 8.5 |
+| Performance (CWV) | 10% | 70/100 | 7.0 |
+| AI Search Readiness | 10% | 80/100 | 8.0 |
+| Images | 5% | 82/100 | 4.1 |
+| **ŁĄCZNIE** | **100%** | | **76.4 / 100** |
 
 ---
 
-## Podsumowanie Wykonawcze
+## Executive Summary
 
-### Top 5 Krytycznych Problemów
-1. **Hero image 752KB** — niezoptymalizowany JPG spowalnia LCP i obniża Performance score
-2. **Brak favicon.ico i apple-touch-icon.png** — Layout je referencjonuje, pliki nie istnieją w `public/`
-3. **Brak OG image** — `public/images/og-default.jpg` nie istnieje, OG preview generuje błąd
-4. **Thin content: /realizacje (~450 słów)** — za mało tekstu na stronę z realizacjami
-5. **Brak llms.txt** — AI Overviews (Google), ChatGPT i Perplexity nie mogą indeksować treści
+### Top 5 problemów (Critical / High)
+1. **Brak title + meta na /realizacje** – strona portfolio nie ma własnego tagu title
+2. **Meta opisy generyczne** na /kontakt, /schody-drewniane, /o-nas, /uslugi – używają domyślnego opisu zamiast unikalnego
+3. **Sitemap – wszystkie priorytety 0.8** – Google nie wie co ważniejsze; homepage powinien mieć 1.0
+4. **LCP prawdopodobnie >2.5s na mobile** – hero 391KB jako CSS `background-image` (przeglądarka nie może preloadować)
+5. **Brak llms.txt** – ChatGPT, Perplexity, Gemini nie mają ustrukturyzowanej wiedzy o firmie
 
-### Top 5 Quick Wins (szybkie do zrobienia)
-1. Skompresować `hero.jpg` (752KB → <120KB WebP) — natychmiastowy zysk w Core Web Vitals
-2. Dodać `favicon.ico` i `apple-touch-icon.png` do `public/`
-3. Dodać `public/images/og-default.jpg` (1200×630px)
-4. Dodać `lastmod` do sitemapa (konfiguracja @astrojs/sitemap)
-5. Dodać `llms.txt` do `public/`
+### Top 5 Quick Wins
+1. Dodaj title + meta na /realizacje (15 min)
+2. Popraw meta opisy na 4 stronach (30 min)
+3. Zmień priorytety w sitemapie: / → 1.0, city pages → 0.9 (15 min)
+4. Dodaj `<link rel="preload">` dla hero image (10 min)
+5. Utwórz /llms.txt (20 min)
 
 ---
 
-## 1. Technical SEO
+## 1. Technical SEO (78/100)
 
 ### Crawlability & Indexability
 
 | Sprawdzenie | Status | Szczegóły |
 |-------------|--------|-----------|
-| robots.txt | ✅ | `Allow: /` — bez blokad |
-| Sitemap index | ✅ | `/sitemap-index.xml` dostępny |
-| Sitemap-0 | ✅ | 6 stron prawidłowo zaindeksowanych |
-| Sitemap URLs | ✅ | Wskazują na `ksiazczak-parkiet.pl` (produkcja) |
-| Lastmod w sitemap | ❌ | Brak dat modyfikacji — Google nie wie co odświeżać |
-| Canonical tags | ✅ | Dynamicznie generowane, wskazują na prod |
-| lang="pl" | ✅ | Ustawiony w `<html lang="pl">` |
+| robots.txt | ✅ | `Allow: /` – bez blokad |
+| GPTBot / ClaudeBot / PerplexityBot | ✅ | Explicite dozwolone |
+| Sitemap index | ✅ | `/sitemap-index.xml` → `/sitemap-0.xml` |
+| Sitemap – liczba stron | ✅ | 10 URLi |
+| Canonical tags | ✅ | Obecne w Layout.astro, wskazują domenę prod |
+| lang="pl" | ✅ | `<html lang="pl">` |
 | Meta robots | ✅ | `index, follow, max-image-preview:large` |
-| Noindex/nofollow | ✅ | Brak na wszystkich stronach |
-| HTTPS | ✅ | Vercel automatycznie |
+| HTTPS | ✅ | Vercel TLS 1.3 |
 | Mobile viewport | ✅ | `width=device-width, initial-scale=1.0` |
+| Geo meta tags | ✅ | geo.region PL-MZ, geo.placename Siedlce |
+| Breadcrumb navigation | ✅ | Na wszystkich podstronach |
 
-### Zasoby
+### Problemy techniczne
 
-| Plik | Status | Szczegóły |
-|------|--------|-----------|
-| favicon.svg | ✅ | Istnieje w `public/` |
-| favicon.ico | ❌ | Referencjonowany w Layout, nie istnieje |
-| apple-touch-icon.png | ❌ | Referencjonowany w Layout, nie istnieje |
-| og-default.jpg | ❌ | Referencjonowany jako domyślny OG obraz, nie istnieje |
-
-### Geo Meta Tags
-```html
-<meta name="geo.region" content="PL-MZ" />        ✅
-<meta name="geo.placename" content="Siedlce" />    ✅
-<meta name="geo.position" content="52.1678;22.2903" /> ✅
-<meta name="ICBM" content="52.1678, 22.2903" />   ✅
-```
-
-### Bezpieczeństwo
-- HTTPS: ✅ Vercel
-- Security headers: nie sprawdzano (Vercel domyślnie dodaje podstawowe)
-- Mixed content: nie wykryto
+| Problem | Priorytet | Szczegóły |
+|---------|-----------|-----------|
+| Sitemap URL domeny – robots.txt wskazuje `ksiazczak-parkiet.pl` | LOW | OK dla prod; zweryfikuj po wdrożeniu |
+| Sitemap priority = 0.8 wszędzie | MEDIUM | Homepage → 1.0; city pages → 0.9; o-nas/kontakt → 0.6 |
+| Wszystkie lastmod w sitemapie identyczne (2026-04-09) | LOW | Google pomaga sobie; warto aby lastmod był dynamiczny |
+| Brak HTTP security headers | LOW | Vercel dodaje podstawowe; CSP niekonieczne dla statycznej strony |
 
 ---
 
-## 2. Content Quality (E-E-A-T)
+## 2. Content Quality (72/100)
 
-### Ilość treści na stronę
-
-| Strona | Szacunkowa liczba słów | Status |
-|--------|------------------------|--------|
-| / (homepage) | ~1,200 | ✅ Dobra |
-| /cyklinowanie-bezpylowe | ~1,300 | ✅ Dobra |
-| /uslugi | ~1,300 | ✅ Dobra |
-| /kontakt | ~850 | ✅ OK dla strony kontaktu |
-| /schody-drewniane | ~650 | ⚠️ Borderline thin |
-| /realizacje | ~450 | ❌ Thin content |
-
-### E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
+### E-E-A-T Assessment
 
 | Sygnał | Status | Szczegóły |
 |--------|--------|-----------|
-| Doświadczenie (lata) | ✅ | "25+ lat doświadczenia" na wszystkich stronach |
-| Nazwani eksperci | ✅ | Krzysztof (parkiety) i Andrzej (schody) wymienieni z imienia |
-| Firma rodzinna | ✅ | "Rodzinna firma" w opisie |
-| Ceny podane | ✅ | 25–45 zł/m² na stronie + w schemacie |
-| Dane kontaktowe | ✅ | 2 numery telefonu, email, adres |
-| Opinie klientów | ✅ | Widget Elfsight Google Reviews |
-| NIP widoczny | ✅ | W stopce |
-| Certyfikaty/dyplomy | ❌ | Brak informacji o kwalifikacjach/uprawnieniach |
-| Godziny pracy | ✅ | W schemacie i potencjalnie na stronie |
-| Blog/artykuły | ❌ | Brak sekcji edukacyjnej/poradnikowej |
+| Doświadczenie | ✅ | "od 1999 roku", 1000+ realizacji, konkretne miejscowości |
+| Named expert | ✅ | Krzysztof Książczak + Person schema |
+| Technologia | ✅ | Bona DCS opisany dokładnie |
+| Marki partnerskie | ✅ | Blanchon, Oli Natura, Artelit |
+| Oceny Google | ✅ | 5.0★ / 47 recenzji |
+| NIP widoczny | ✅ | 8212012992 |
+| Adres fizyczny | ✅ | Mordy, Mazowieckie |
+| Certyfikaty Bona | ❌ | Nie wspomniane – warto dodać jeśli posiadane |
+| Blog / poradniki | ❌ | Brak – duży gap SEO |
 
-### Problemy z contentem
+### Liczba słów per strona
 
-**Strona /realizacje (thin content):**
-- ~450 słów — zdecydowanie za mało
-- Galeria ma tylko 1 parę przed/po (tylko `przed-1.jpg` i `po-1.jpg` w `src/assets/galeria/`)
-- Brak opisów poszczególnych realizacji (lokalizacja, zakres prac, użyte materiały)
-- Brak zachęty do zostawienia opinii
+| Strona | Słowa (est.) | Status |
+|--------|-------------|--------|
+| / | ~1400 | ✅ |
+| /cyklinowanie-bezpylowe | ~1900 | ✅ |
+| /cyklinowanie-siedlce | ~1300 | ✅ |
+| /cyklinowanie-warszawa | ~1900 | ✅ |
+| /cyklinowanie-minsk-mazowiecki | ~1300 | ✅ |
+| /uslugi | ~1300 | ✅ |
+| /schody-drewniane | ~1300 | ✅ |
+| /o-nas | ~1100 | ✅ |
+| /realizacje | ~400 | ⚠️ Thin – brak opisów realizacji |
+| /kontakt | ~850 | ✅ |
 
-**Strona /schody-drewniane:**
-- ~650 słów — na granicy cienkości dla niszy schodów
-- Brak FAQ specyficznego dla schodów
-- Brak realizacji schodów w galerii
+### Duplicate Content Risk
+- City pages: ~30% podobne treści (sekcja „Jak pracujemy" jest templatem) – **akceptowalne**
+- Unikalne elementy per miasto: dzielnice, typy budynków, FAQ, odległość – ✅ dobre zróżnicowanie
+
+### Content Gaps (szanse keyword)
+
+| Temat | Wolumen est. | Trudność |
+|-------|-------------|----------|
+| "cena cyklinowania parkietu m2" | 880/mies | Średnia |
+| "jak często cyklinować parkiet" | 590/mies | Niska |
+| "lakier czy olej do podłogi" | 480/mies | Niska |
+| "cyklinowanie parkietu etapy" | 320/mies | Niska |
+| "renowacja schodów drewnianych" | 260/mies | Niska |
 
 ---
 
-## 3. On-Page SEO
+## 3. On-Page SEO (75/100)
 
 ### Title Tags
 
-| Strona | Title | Długość | Status |
-|--------|-------|---------|--------|
-| / | "Cyklinowanie Bezpyłowe Podłóg Siedlce i Warszawa | Książczak Parkiety" | 68 zn. | ✅ |
-| /cyklinowanie-bezpylowe | "Cyklinowanie bezpyłowe parkietów i podłóg drewnianych" (szacowane) | ~55 zn. | ✅ |
-| /uslugi | "Usługi Parkieciarskie – Lakierowanie, Olejowanie, Układanie | Książczak Siedlce" | 77 zn. | ⚠️ (za długi) |
-| /schody-drewniane | "Schody Drewniane Siedlce – Montaż, Renowacja | Andrzej Książczak" | 62 zn. | ✅ |
-| /realizacje | "Realizacje – Cyklinowanie Parkietu Przed i Po | Książczak Siedlce" | 63 zn. | ✅ |
-| /kontakt | "Kontakt – Cyklinowanie Siedlce i Warszawa | Książczak Parkiety" | 60 zn. | ✅ |
+| Strona | Title | Ocena |
+|--------|-------|-------|
+| / | Cyklinowanie Bezpyłowe Siedlce, Warszawa, Mińsk Mazowiecki \| Książczak | ✅ |
+| /cyklinowanie-bezpylowe | Cyklinowanie Bezpyłowe Podłóg – Siedlce, Warszawa \| 25 lat \| Książczak | ✅ |
+| /cyklinowanie-siedlce | Cyklinowanie Bezpyłowe Siedlce – Bezpłatna Wycena \| Książczak | ✅ |
+| /cyklinowanie-warszawa | Cyklinowanie Bezpyłowe Warszawa – Bezpłatna Wycena \| Książczak | ✅ |
+| /cyklinowanie-minsk-mazowiecki | Cyklinowanie Bezpyłowe Mińsk Mazowiecki – Bezpłatna Wycena \| Książczak | ✅ |
+| /uslugi | Usługi parkieciarskie – Cyklinowanie, Lakierowanie, Schody \| Książczak | ✅ |
+| /schody-drewniane | Schody Drewniane Siedlce – Montaż, Produkcja, Renowacja \| Książczak | ✅ |
+| /o-nas | O nas – Rodzinna firma parkieciarska od 1999 roku \| Książczak | ✅ |
+| /kontakt | Kontakt – Cyklinowanie Siedlce i Warszawa \| Książczak Parkiety | ⚠️ Brak słowa kluczowego "parkiet" |
+| /realizacje | **Nie wykryto tagu title** | 🔴 CRITICAL |
 
 ### Meta Descriptions
 
-| Strona | Status | Szczegóły |
-|--------|--------|-----------|
-| / | ✅ | Zawiera CTA "Bezpłatna wycena!", geo, USP |
-| /cyklinowanie-bezpylowe | ✅ | Dobra |
-| /uslugi | ✅ | Dobra, zawiera "Bezpłatna wycena!" |
-| /schody-drewniane | ✅ | Dobra, zawiera emoji ☎ i "Bezpłatna wycena!" |
-| /realizacje | ✅ | Dobra, wymienia miasta |
-| /kontakt | ✅ | Dobra |
+| Strona | Status | Problem |
+|--------|--------|---------|
+| / | ✅ Unikalna | – |
+| /cyklinowanie-* | ✅ Dynamiczne z miastem | – |
+| /uslugi | ⚠️ Generyczna | Używa domyślnej z LocalBusiness |
+| /schody-drewniane | ⚠️ Generyczna | Używa domyślnej LocalBusiness |
+| /o-nas | ⚠️ Generyczna | Opisuje cyklinowanie, nie stronę "O nas" |
+| /kontakt | 🔴 Generyczna | Zupełnie nie pasuje do strony kontaktu |
+| /realizacje | 🔴 Brak | Brak meta description |
 
-### Struktura nagłówków (H1 / H2)
+### H1 / H2 Structure
 
 | Strona | H1 | Ocena |
 |--------|----|-------|
-| / | "Cyklinowanie bezpyłowe podłóg drewnianych" | ✅ Doskonały |
-| /cyklinowanie-bezpylowe | "Cyklinowanie bezpyłowe parkietów i podłóg drewnianych" | ✅ Dobry |
-| /uslugi | "Nasze usługi" | ❌ Generyczny — brak słów kluczowych |
-| /schody-drewniane | "Schody drewniane Siedlce i okolice" | ✅ Dobry |
-| /realizacje | "Nasze realizacje" | ⚠️ Generyczny |
-| /kontakt | "Skontaktuj się z nami" | ✅ OK dla kontaktu |
+| / | Profesjonalne usługi parkieciarskie Siedlce i Warszawa | ✅ |
+| /cyklinowanie-bezpylowe | Cyklinowanie bezpyłowe parkietów i podłóg drewnianych | ✅ |
+| /uslugi | Nasze usługi parkieciarskie | ✅ |
+| /schody-drewniane | Schody drewniane Siedlce i okolice | ✅ |
+| /o-nas | O nas – rodzinna firma z tradycjami | ✅ |
+| /kontakt | Skontaktuj się z nami | ✅ |
 
-### Open Graph & Social
+### Internal Linking Gaps
 
-| Tag | Status |
-|-----|--------|
-| og:type | ✅ "website" |
-| og:title | ✅ Dynamiczny |
-| og:description | ✅ Dynamiczny |
-| og:image | ❌ Plik nie istnieje (og-default.jpg) |
-| og:locale | ✅ pl_PL |
-| og:site_name | ✅ |
-| twitter:card | ✅ summary_large_image |
-
-### Linkowanie wewnętrzne
-- Nawigacja: 6 linków (home, cyklinowanie, usługi, schody, realizacje, kontakt) ✅
-- Stopka: duplikuje nawigację + Facebook ✅
-- Treść stron: linki kontekstowe do powiązanych usług ✅
-- Brak linku do Googl Business Profile z treści ❌
+| Gap | Priorytet |
+|-----|-----------|
+| City pages nie linkują do /uslugi ani /schody-drewniane | HIGH |
+| /realizacje nie linkuje do stron usług | MEDIUM |
+| /schody-drewniane nie linkuje do /uslugi | MEDIUM |
+| Brak linku z /o-nas do konkretnych usług | LOW |
 
 ---
 
-## 4. Schema / Structured Data
+## 4. Schema / Structured Data (85/100)
 
-### Zaimplementowane schematy
+### Zaimplementowane typy
 
-| Schema | Typ | Strona | Status |
-|--------|-----|--------|--------|
-| LocalBusiness | JSON-LD | Wszystkie | ✅ Doskonały |
-| HowTo | JSON-LD | / | ✅ |
-| Service | JSON-LD | /cyklinowanie-bezpylowe, /schody-drewniane | ✅ |
-| FAQPage | Microdata | / | ✅ (valid, ale nie JSON-LD) |
-| BreadcrumbList | JSON-LD | Wszystkie wewnętrzne | ✅ |
-| OfferCatalog | JSON-LD (w LocalBusiness) | Wszystkie | ✅ |
+| Typ | Strony | Status |
+|-----|--------|--------|
+| LocalBusiness (pełny) | Wszystkie | ✅ Doskonały |
+| FAQPage | homepage, /cyklinowanie-*, /uslugi, /schody | ✅ |
+| BreadcrumbList | Wszystkie poza homepage | ✅ |
+| Person (Krzysztof) | Homepage | ✅ |
+| Service | /uslugi, /cyklinowanie-* | ✅ |
+| AggregateRating (5/5, 47) | Większość stron | ✅ |
+| HowTo | Homepage | ✅ |
+| AboutPage | /o-nas | ✅ |
+| OfferCatalog | Wszędzie | ✅ |
 
-### LocalBusiness — kompletność
+### LocalBusiness – kompletność
 
 | Pole | Status |
 |------|--------|
-| name | ✅ |
-| alternateName | ✅ (2 alternatywy) |
-| description | ✅ |
-| url | ✅ |
-| telephone | ✅ |
-| email | ✅ |
-| address (pełny) | ✅ |
-| geo | ✅ |
-| areaServed (8 miast) | ✅ |
-| priceRange | ✅ |
-| currenciesAccepted | ✅ |
-| paymentAccepted | ✅ |
+| name, telephone, email | ✅ |
+| address (pełny PostalAddress) | ✅ |
+| geo (GeoCoordinates) | ✅ |
 | openingHoursSpecification | ✅ |
-| hasOfferCatalog (5 usług) | ✅ |
-| aggregateRating (5.0, 47) | ✅ |
-| sameAs (FB, Google) | ✅ |
-| @id | ✅ |
+| areaServed (8 miast + Mazowieckie) | ✅ |
+| aggregateRating | ✅ |
+| hasOfferCatalog (6 usług) | ✅ |
+| paymentAccepted, currenciesAccepted | ✅ |
+| NIP (vatID) | ✅ |
+| sameAs (Facebook, Google) | ✅ |
 
 ### Brakujące schematy
 
-| Schema | Priorytet | Korzyść |
-|--------|-----------|---------|
-| FAQPage JSON-LD | Medium | Rich result FAQ snippety |
-| Person (Krzysztof + Andrzej) | Medium | E-E-A-T, Knowledge Panel |
-| ImageObject z lokalizacją | Low | Google Images SEO |
-| Review (indywidualne recenzje) | Low | Rich stars w SERP |
+| Typ | Strona | Priorytet | Korzyść |
+|-----|--------|-----------|---------|
+| `ImageGallery` + `ImageObject` | /realizacje | MEDIUM | Lepsza widoczność w Google Images |
+| `Review` (indywidualny) | /realizacje | LOW | Rich stars w SERP |
+| `ItemList` dla galerii | /realizacje | LOW | Lista w wynikach |
+
+### Uwaga walidacyjna
+AggregateRating (47 recenzji, 5.0★) – **Google może odrzucić jeśli reviewCount jest zawyżony**. Upewnij się, że liczba 47 odpowiada faktycznym recenzjom na Google Business Profile.
 
 ---
 
-## 5. Performance (Core Web Vitals)
+## 5. Performance / Core Web Vitals (70/100)
 
-*Uwaga: Brak dostępu do Google PSI API (rate limit). Ocena na podstawie analizy kodu i zasobów.*
+### Wdrożone optymalizacje ✅
+- Hero: 750KB → 391KB (WebP, 1920px, quality 85)
+- Google Fonts: `media="print" onload` – non-blocking
+- Google Maps: IntersectionObserver lazy load (–348KB JS)
+- Loga: src/assets/ → Astro `<Image>` WebP
+- `bg-fixed` usunięty na mobile (iOS Safari fix)
+- Wszystkie zdjęcia galerii: Astro auto WebP + srcset + lazy loading
 
-### Znalezione problemy wydajnościowe
+### Estymowane CWV (mobile)
 
-| Problem | Wpływ | Metryka |
-|---------|-------|---------|
-| `hero.jpg` 752KB, format JPG | Krytyczny | LCP ↑↑ |
-| `public/images/` niezoptymalizowane JPG | Wysoki | LCP, FCP |
-| Elfsight zewnętrzny skrypt | Wysoki | INP, TBT |
-| Google Fonts (render-blocking) | Medium | FCP |
-| Brak `width`/`height` na hero img | Medium | CLS |
+| Metryka | Estymacja | Próg "Good" | Status |
+|---------|-----------|-------------|--------|
+| **LCP** | 2.8–3.5s | < 2.5s | ⚠️ Needs Improvement |
+| **INP** | 80–120ms | < 200ms | ✅ Good |
+| **CLS** | 0.05–0.10 | < 0.10 | ✅ Good |
 
-### Pozytywne
-- Astro SSG → brak JS frameworka per se ✅
-- Vercel CDN edge delivery ✅
-- Tailwind CSS inlined/purged ✅
-- `compressHTML: true` ✅
-- Gallery images w `src/assets/` → auto WebP przez Astro ✅
-- `font-display: swap` (`display=swap` w URL) ✅
+### Główne problemy wydajnościowe
 
-### Rekomendacja
+| Problem | Priorytet | Opis |
+|---------|-----------|------|
+| Hero jako CSS `background-image` | HIGH | Przeglądarka nie może preloadować – LCP cierpi. Dodaj `<link rel="preload" as="image">` |
+| Elfsight widget | HIGH | 3rd-party JS blokuje main thread. Załaduj z IntersectionObserver jak Google Maps |
+| Hero 391KB bez preload | MEDIUM | Przy CSS bg brak sygnału preload = opóźnienie LCP ~0.5–1s |
 
-Przenieść `hero.jpg` do `src/assets/` i użyć `<Image>` z Astro:
-```astro
-import { Image } from 'astro:assets';
-import heroImg from '../assets/hero.jpg';
-<Image src={heroImg} alt="..." width={1200} height={700} format="webp" quality={80} />
+### Rekomendacja dla LCP
+Dodaj do `<head>` (Layout.astro):
+```html
+<link rel="preload" as="image" href="{optimizedBg.src}" fetchpriority="high" />
 ```
-Lub skompresować `public/hero.jpg` do WebP <120KB narzędziem Squoosh.
+Lub lepiej: przenieś hero na `<img>` z `fetchpriority="high"` i `loading="eager"`.
 
 ---
 
-## 6. AI Search Readiness (GEO)
+## 6. AI Search Readiness (80/100)
 
-| Sprawdzenie | Status | Szczegóły |
-|-------------|--------|-----------|
-| llms.txt | ❌ | Brak pliku |
-| AI.txt | ❌ | Brak pliku |
-| GPTBot w robots.txt | ✅ | `Allow: /` — dostępne |
-| ClaudeBot w robots.txt | ✅ | `Allow: /` — dostępne |
-| PerplexityBot | ✅ | `Allow: /` — dostępne |
-| FAQPage (cytowalne Q&A) | ✅ | 8 FAQ na homepage |
-| HowTo schema | ✅ | 3 kroki cyklinowania |
-| Named entities | ✅ | Krzysztof, Andrzej Książczak |
-| Konkretne dane (ceny, lata) | ✅ | 25–45 zł/m², 25 lat |
-| Długie artykuły/poradniki | ❌ | Brak blogu |
+### Dostęp AI crawlerów ✅
+```
+GPTBot: Allow
+ClaudeBot: Allow
+PerplexityBot: Allow
+Googlebot: Allow
+```
 
-### AI Citation Score: 52/100
-Strona jest dostępna dla AI botów ale brak `llms.txt` i contentu poradnikowego ogranicza szansę na cytowanie w AI Overviews i ChatGPT.
+### Czynniki cytowania przez AI
+
+| Czynnik | Status |
+|---------|--------|
+| FAQPage schema | ✅ |
+| Jasna struktura H1/H2 | ✅ |
+| Named entity (Krzysztof + Person schema) | ✅ |
+| Konkretne fakty (25 lat, 1000+, Bona DCS) | ✅ |
+| Lokalizacja precyzyjna | ✅ |
+| Tabele porównawcze w treści | ❌ |
+| llms.txt | ❌ |
+| Wzmianki zewnętrzne / PR | ❌ |
+| Blog / artykuły poradnikowe | ❌ |
+
+### Rekomendacje AI SEO
+1. **Stwórz `/llms.txt`** – opisz firmę, usługi, obsługiwany obszar
+2. **Dodaj tabele** w treści (lakier vs olej, porównanie wykończeń)
+3. **Rozszerz FAQ** o pytania konwersacyjne (jak Perplexity/ChatGPT je zadają)
 
 ---
 
 ## 7. Local SEO
 
-| Czynnik | Status | Szczegóły |
-|---------|--------|-----------|
-| NAP w schemacie | ✅ | Spójny |
-| NAP w stopce | ✅ | Spójny z schematem |
-| Adres: Mordy 08-140 | ✅ | Spójny |
-| areaServed (8 miast) | ✅ | Siedlce, Warszawa, i inne |
-| Mapa na stronie | ⚠️ | Brak (placeholder w ServiceArea) |
-| Opinie Google (Elfsight) | ✅ | Widget skonfigurowany |
-| Facebook sameAs | ✅ | |
-| Google Business sameAs | ✅ | `g.co/kgs/r7Xu2b` |
-| Siedlce w title/H1 | ✅ | |
-| Ceny w schemacie | ✅ | `"priceRange": "25–45 zł/m²"` |
+### NAP Consistency ✅
+- **Nazwa:** Książczak Parkiety i Schody – spójna wszędzie
+- **Adres:** ul. 11-go Listopada 61, 08-140 Mordy – spójny
+- **Telefon:** +48 501 652 697 – jeden numer, spójny
+- **Email:** ksiazczak.krzysztof@gmail.com
 
-### Uwaga o adresie
-Adres jest w **Mordach** (nie w Siedlcach), co jest poprawne dla NAP consistency, ale w Google Business Profile ważne jest by adres był identyczny.
+### City Landing Pages
 
----
+| Miasto | Strona | Unikalność | Status |
+|--------|--------|-----------|--------|
+| Siedlce | /cyklinowanie-siedlce | ✅ Wysoka | ✅ |
+| Warszawa | /cyklinowanie-warszawa | ✅ Wysoka | ✅ |
+| Mińsk Mazowiecki | /cyklinowanie-minsk-mazowiecki | ✅ Dobra | ✅ |
+| Łuków | ❌ Brak | – | Potencjał |
+| Biała Podlaska | ❌ Brak | – | Potencjał |
+| Garwolin | ❌ Brak | – | Potencjał |
 
-## 8. Images
-
-| Obraz | Format | Rozmiar | Alt text | Status |
-|-------|--------|---------|----------|--------|
-| /hero.jpg | JPG | 752KB | ✅ | ❌ Niezoptymalizowany |
-| /images/hero-parkiet.jpg | JPG | 252KB | - | ❌ Nieużywany! |
-| /images/uslugi/*.jpg | JPG | nieznany | ✅ (zakładane) | ⚠️ Niezoptymalizowane |
-| src/assets/galeria/przed-1.jpg | JPG→WebP | auto | ✅ | ✅ Astro Image |
-| src/assets/galeria/po-1.jpg | JPG→WebP | auto | ✅ | ✅ Astro Image |
-| /parkiety-logo-czarne.png | PNG | 43KB | ✅ | ⚠️ Mógłby być WebP |
-| /parkiety-logo-bialy.png | PNG | 128KB | ✅ | ❌ 128KB logo to za dużo |
-
-### Kluczowe problemy
-1. `/images/hero-parkiet.jpg` — 252KB JPG nie jest używany (zastąpiony przez `hero.jpg`)
-2. Logo białe 128KB — za duże dla pliku logo, powinno być <20KB
-3. Tylko 2 zdjęcia realizacji (1 para przed/po) — bardzo mało
+### GBP Rekomendacje
+- Uzupełnij Q&A w Google Business Profile
+- Dodaj zdjęcia "przed i po" bezpośrednio do GBP
+- Regularnie proś klientów o recenzję (cel: 100+)
+- Uzupełnij kategorie: Parkieciarstwo, Renowacja podłóg, Schody
 
 ---
 
-## 9. Technologia i architektura
+## 8. Images (82/100)
 
-| Aspekt | Szczegóły |
-|--------|-----------|
-| Framework | Astro 5 (SSG) |
-| CSS | Tailwind CSS v3 |
-| Hosting | Vercel |
-| Adapter | @astrojs/vercel (static) |
-| Email | Resend API |
-| Opinie | Elfsight (Google Reviews) |
-| Sitemap | @astrojs/sitemap ✅ |
-| Kompresja HTML | ✅ (`compressHTML: true`) |
-| `Astro.site` | `https://ksiazczak-parkiet.pl` ✅ |
+| Aspekt | Status |
+|--------|--------|
+| Nazwy plików – SEO keywords | ✅ Wdrożone |
+| Format WebP (Astro auto) | ✅ |
+| srcset / responsive | ✅ Astro auto |
+| Lazy loading | ✅ |
+| Alt – usługi (opisowe z miastem) | ✅ |
+| Alt – galeria parkiety | ⚠️ Schematyczne ("realizacja nr X") |
+| Alt – galeria schody | ⚠️ Schematyczne ("realizacja nr X") |
+| IPTC/XMP metadata | ❌ Niszowe, ale możliwe |
 
 ---
 
-## Podsumowanie stron
+## Sitemap Analysis
 
-| Strona | Główne słowo kluczowe | Schema | Meta desc | Thin? |
-|--------|----------------------|--------|-----------|-------|
-| / | cyklinowanie bezpyłowe Siedlce | LocalBusiness, HowTo, FAQ | ✅ | ✅ |
-| /cyklinowanie-bezpylowe | cyklinowanie bezpyłowe parkietu | LocalBusiness, Service, Breadcrumb | ✅ | ✅ |
-| /uslugi | usługi parkieciarskie Siedlce | LocalBusiness, Breadcrumb | ✅ | ✅ |
-| /schody-drewniane | schody drewniane Siedlce | LocalBusiness, Service, Breadcrumb | ✅ | ⚠️ |
-| /realizacje | realizacje cyklinowanie przed i po | LocalBusiness, Breadcrumb | ✅ | ❌ |
-| /kontakt | kontakt cyklinowanie Siedlce | LocalBusiness, Breadcrumb | ✅ | ✅ |
+| URL | Priority | Rekomendacja |
+|-----|----------|-------------|
+| / | 0.8 | → Zmień na **1.0** |
+| /cyklinowanie-bezpylowe | 0.8 | → Zmień na **0.9** |
+| /cyklinowanie-siedlce | 0.8 | → Zmień na **0.9** |
+| /cyklinowanie-warszawa | 0.8 | → Zmień na **0.9** |
+| /cyklinowanie-minsk-mazowiecki | 0.8 | → Zmień na **0.9** |
+| /uslugi, /schody-drewniane | 0.8 | → Zostaw **0.8** |
+| /o-nas, /kontakt, /realizacje | 0.8 | → Zmień na **0.6** |
+
+---
+
+*Raport wygenerowany: 2026-04-09 | Narzędzie: Claude Code SEO Audit | ksiazczak-parkiet.pl*

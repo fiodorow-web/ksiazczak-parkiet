@@ -4,20 +4,85 @@ import Gallery from '../components/Gallery.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { localBusinessSchema } from '../components/SchemaOrg.astro';
 import { Image } from 'astro:assets';
+import { SITE } from '../config';
 
+/* ── Schody ── */
 const schodMods = import.meta.glob<{ default: ImageMetadata }>(
   '../assets/schody/*.{jpg,jpeg,png,webp,avif}',
   { eager: true }
 );
-const schodArr = Object.values(schodMods).map(m => m.default);
+
+function fileToAlt(path: string): string {
+  const name = path.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+  return name.replace(/-/g, ' ').replace(/\b\w/, c => c.toUpperCase()) + ' – Książczak Parkiety';
+}
+
+const schodEntries = Object.entries(schodMods).map(([path, mod]) => ({
+  img: mod.default,
+  alt: fileToAlt(path),
+}));
 const schodInitial = 8;
-const schodHasMore = schodArr.length > schodInitial;
+const schodHasMore = schodEntries.length > schodInitial;
+
+/* ── Before / After ── */
+const beforeAfterMods = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/before-after/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+// Pair by number: przed-1.jpg ↔ po-1.jpg
+const beforeMap = new Map<string, ImageMetadata>();
+const afterMap = new Map<string, ImageMetadata>();
+Object.entries(beforeAfterMods).forEach(([path, mod]) => {
+  const file = path.split('/').pop() ?? '';
+  const num = file.match(/\d+/)?.[0] ?? '';
+  if (file.startsWith('przed')) beforeMap.set(num, mod.default);
+  else if (file.startsWith('po')) afterMap.set(num, mod.default);
+});
+
+const beforeAfterPairs = [...beforeMap.entries()]
+  .filter(([num]) => afterMap.has(num))
+  .map(([num, before]) => ({
+    num,
+    before,
+    after: afterMap.get(num)!,
+  }))
+  .sort((a, b) => Number(a.num) - Number(b.num));
+
+/* ── Galeria images for schema ── */
+const galeriaMods = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/galeria/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+const imageGallerySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ImageGallery',
+  name: 'Realizacje cyklinowania parkietu i schodów drewnianych – Książczak Parkiety',
+  description: 'Galeria zdjęć z realizacji cyklinowania bezpyłowego podłóg drewnianych, lakierowania, olejowania oraz montażu schodów drewnianych w Siedlcach, Warszawie i Mińsku Mazowieckim.',
+  url: `${SITE.url}/realizacje`,
+  numberOfItems: Object.keys(galeriaMods).length + schodEntries.length,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      ...Object.entries(galeriaMods).map(([path], i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'ImageObject',
+          name: fileToAlt(path),
+          contentUrl: `${SITE.url}${path.replace('../assets/', '/_astro/')}`,
+        },
+      })).slice(0, 10),
+    ],
+  },
+};
 ---
 
 <Layout
-  title="Realizacje – Galeria Podłóg i Schodów Drewnianych | Książczak Siedlce"
-  description="Galeria realizacji cyklinowania bezpyłowego, lakierowania podłóg i renowacji schodów drewnianych. Siedlce, Warszawa, Mińsk Mazowiecki. Ponad 1000 zrealizowanych zleceń."
-  schema={localBusinessSchema}
+  title="Realizacje – Cyklinowanie Parkietu i Schody Drewniane | Książczak Siedlce"
+  description="Galeria realizacji cyklinowania bezpyłowego, lakierowania podłóg i schodów drewnianych. Zdjęcia przed i po. Siedlce, Warszawa, Mińsk Mazowiecki. Ponad 1000 zleceń."
+  schema={[localBusinessSchema, imageGallerySchema]}
   breadcrumbs={[{ name: 'Realizacje', url: '/realizacje' }]}
 >
   <!-- Header -->
@@ -31,17 +96,60 @@ const schodHasMore = schodArr.length > schodInitial;
         </ol>
       </nav>
       <h1 class="text-2xl font-bold text-stone-900 sm:text-4xl" data-animate>Nasze realizacje</h1>
-      <p class="mt-4 max-w-2xl text-lg text-stone-600 leading-relaxed" data-animate style="transition-delay: 80ms">
-        Ponad 1000 zrealizowanych zleceń – cyklinowanie bezpyłowe, lakierowanie i olejowanie podłóg drewnianych oraz schody na wymiar. Każde zdjęcie to prawdziwa realizacja z naszym udziałem.
+      <p class="mt-4 max-w-2xl text-base text-stone-600 leading-relaxed sm:text-lg" data-animate style="transition-delay: 80ms">
+        Ponad 1000 zrealizowanych zleceń w Siedlcach, Warszawie, Mińsku Mazowieckim i całym Mazowszu.
+        Każde zdjęcie to efekt naszej pracy – cyklinowanie bezpyłowe, lakierowanie, olejowanie podłóg drewnianych oraz montaż i renowacja schodów na wymiar.
       </p>
     </div>
   </section>
+
+  <!-- Przed i Po -->
+  {beforeAfterPairs.length > 0 && (
+    <section class="section-padding bg-white">
+      <div class="container-max">
+        <h2 class="section-title" data-animate>Przed i po cyklinowaniu</h2>
+        <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">
+          Zobacz różnicę, jaką robi profesjonalne cyklinowanie bezpyłowe. Kliknij, aby powiększyć.
+        </p>
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {beforeAfterPairs.map((pair, i) => (
+            <div class="rounded-2xl bg-stone-50 overflow-hidden ring-1 ring-stone-100" data-animate style={`transition-delay: ${i * 100}ms`}>
+              <div class="grid grid-cols-2">
+                <div class="relative">
+                  <Image
+                    src={pair.before}
+                    alt={`Podłoga drewniana przed cyklinowaniem – realizacja ${pair.num} – Książczak Siedlce`}
+                    width={600} height={400}
+                    class="w-full h-48 object-cover"
+                    loading="lazy" format="webp" quality={82}
+                  />
+                  <span class="absolute bottom-2 left-2 rounded-full bg-stone-900/70 px-2.5 py-0.5 text-xs font-medium text-white">Przed</span>
+                </div>
+                <div class="relative">
+                  <Image
+                    src={pair.after}
+                    alt={`Podłoga drewniana po cyklinowaniu bezpyłowym – realizacja ${pair.num} – Książczak Siedlce`}
+                    width={600} height={400}
+                    class="w-full h-48 object-cover"
+                    loading="lazy" format="webp" quality={82}
+                  />
+                  <span class="absolute bottom-2 left-2 rounded-full bg-wood-500/90 px-2.5 py-0.5 text-xs font-medium text-white">Po</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Galeria – podłogi -->
   <section class="section-padding bg-white">
     <div class="container-max">
       <h2 class="section-title" data-animate>Podłogi drewniane</h2>
-      <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">Cyklinowanie bezpyłowe, lakierowanie, olejowanie i układanie parkietu.</p>
+      <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">
+        Cyklinowanie bezpyłowe, lakierowanie, olejowanie i układanie parkietu w Siedlcach, Warszawie i Mińsku Mazowieckim.
+      </p>
       <Gallery initialShow={12} showLink={false} />
     </div>
   </section>
@@ -50,10 +158,12 @@ const schodHasMore = schodArr.length > schodInitial;
   <section class="section-padding bg-stone-50">
     <div class="container-max">
       <h2 class="section-title" data-animate>Schody drewniane</h2>
-      <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">Schody drewniane wykonane i odrestaurowane w Siedlcach i okolicach.</p>
-      {schodArr.length > 0 ? (
+      <p class="mt-2 mb-8 text-stone-500" data-animate style="transition-delay: 60ms">
+        Schody drewniane na wymiar – produkcja, montaż i renowacja w Siedlcach i okolicach.
+      </p>
+      {schodEntries.length > 0 ? (
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" id="schody-grid">
-          {schodArr.map((img, i) => (
+          {schodEntries.map((entry, i) => (
             <div
               class:list={[
                 'gallery-item bg-stone-100 aspect-square',
@@ -63,8 +173,8 @@ const schodHasMore = schodArr.length > schodInitial;
               style={`transition-delay: ${Math.min(i * 60, 400)}ms`}
             >
               <Image
-                src={img}
-                alt={`Schody drewniane – realizacja ${i + 1}`}
+                src={entry.img}
+                alt={entry.alt}
                 class="w-full h-full object-cover gallery-image-click"
                 width={1200}
                 height={1200}
@@ -95,8 +205,36 @@ const schodHasMore = schodArr.length > schodInitial;
     </div>
   </section>
 
+  <!-- Powiązane usługi — internal linking -->
+  <section class="section-padding bg-white">
+    <div class="container-max">
+      <h2 class="section-title text-center" data-animate>Sprawdź nasze usługi</h2>
+      <p class="section-subtitle text-center mx-auto max-w-xl" data-animate style="transition-delay: 80ms">
+        Chcesz takie efekty u siebie? Sprawdź szczegóły naszych usług lub zamów bezpłatną wycenę.
+      </p>
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 max-w-4xl mx-auto">
+        {[
+          { href: '/cyklinowanie-bezpylowe', label: 'Cyklinowanie bezpyłowe', desc: 'System Bona DCS, >99% pyłu wychwytywane' },
+          { href: '/uslugi', label: 'Pełna oferta usług', desc: 'Lakierowanie, olejowanie, układanie parkietu' },
+          { href: '/schody-drewniane', label: 'Schody drewniane', desc: 'Montaż, produkcja i renowacja na wymiar' },
+          { href: '/kontakt', label: 'Bezpłatna wycena', desc: 'Zadzwoń lub napisz – odpowiemy od ręki' },
+        ].map((link, i) => (
+          <a
+            href={link.href}
+            class="group rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100 transition-all hover:ring-wood-200 hover:shadow-sm"
+            data-animate
+            style={`transition-delay: ${160 + i * 80}ms`}
+          >
+            <p class="font-semibold text-stone-900 group-hover:text-wood-600 transition-colors">{link.label}</p>
+            <p class="mt-1 text-xs text-stone-500">{link.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <ContactCTA
     title="Chcesz takie efekty?"
-    subtitle="Najlepiej zadzwoń – odbieramy od ręki. Bezpłatna wycena w Siedlcach, Warszawie i okolicach."
+    subtitle="Najlepiej zadzwoń – odbieramy od ręki. Bezpłatna wycena w Siedlcach, Warszawie, Mińsku Mazowieckim i okolicach."
   />
 </Layout>

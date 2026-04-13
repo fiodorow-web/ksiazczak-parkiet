@@ -11,8 +11,19 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     sitemap({
       changefreq: 'monthly',
-      priority: 0.8,
       lastmod: new Date(),
+      serialize(item) {
+        if (item.url === 'https://ksiazczak-parkiet.pl/') {
+          item.priority = 1.0;
+        } else if (item.url.includes('/cyklinowanie-') || item.url.includes('/uslugi') || item.url.includes('/schody-drewniane')) {
+          item.priority = 0.9;
+        } else if (item.url.includes('/realizacje') || item.url.includes('/o-nas') || item.url.includes('/kontakt')) {
+          item.priority = 0.6;
+        } else {
+          item.priority = 0.8;
+        }
+        return item;
+      },
     }),
   ],
   compressHTML: true,

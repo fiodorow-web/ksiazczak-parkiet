@@ -9,12 +9,16 @@ import Reviews from '../components/Reviews.astro';
 import FAQ from '../components/FAQ.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { localBusinessSchema, howToSchema, krzysztofSchema } from '../components/SchemaOrg.astro';
+import { getImage } from 'astro:assets';
+import heroSrc from '../assets/cyklinowanie-bezpylowe-parkiet-drewniany-siedlce.jpg';
+const heroPreload = await getImage({ src: heroSrc, format: 'webp', width: 1920, quality: 85 });
 ---
 
 <Layout
   title="Cyklinowanie Bezpyłowe Siedlce, Warszawa, Mińsk Mazowiecki | Książczak Parkiety"
   description="Profesjonalne cyklinowanie bezpyłowe parkietów i podłóg drewnianych. Siedlce, Warszawa, Mińsk Mazowiecki i okolice. Ponad 25 lat doświadczenia. Bezpłatna wycena!"
   schema={[localBusinessSchema, howToSchema, krzysztofSchema]}
+  preloadImage={heroPreload.src}
 >
   <Hero />
   <Services />

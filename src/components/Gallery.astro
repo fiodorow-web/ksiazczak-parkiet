@@ -28,8 +28,21 @@ const modules = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
-const allImages = Object.values(modules).map((mod) => mod.default);
-const images = limit ? allImages.slice(0, limit) : allImages;
+/** Extract SEO alt from filename: cyklinowanie-bezpylowe-warszawa-apartament.jpg → Cyklinowanie bezpyłowe warszawa apartament */
+function fileToAlt(path: string): string {
+  const name = path.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+  return name
+    .replace(/-/g, ' ')
+    .replace(/\b\w/, c => c.toUpperCase())
+    + ' – Książczak Parkiety';
+}
+
+const allEntries = Object.entries(modules).map(([path, mod]) => ({
+  img: mod.default,
+  alt: fileToAlt(path),
+}));
+const entries = limit ? allEntries.slice(0, limit) : allEntries;
+const images = entries.map(e => e.img);
 const hasImages = images.length > 0;
 const hasMore = images.length > initialShow;
 const galleryId = 'gallery-' + Math.random().toString(36).slice(2, 8);
@@ -38,7 +51,7 @@ const galleryId = 'gallery-' + Math.random().toString(36).slice(2, 8);
 <div>
   {hasImages ? (
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" id={galleryId}>
-      {images.map((img, i) => (
+      {entries.map((entry, i) => (
         <div
           class:list={[
             'gallery-item bg-stone-100 aspect-square',
@@ -48,8 +61,8 @@ const galleryId = 'gallery-' + Math.random().toString(36).slice(2, 8);
           style={`transition-delay: ${Math.min(i * 60, 400)}ms`}
         >
           <Image
-            src={img}
-            alt={`Cyklinowanie bezpyłowe parkietu – realizacja nr ${i + 1} – Książczak Parkiety Siedlce`}
+            src={entry.img}
+            alt={entry.alt}
             width={1200}
             height={1200}
             class="w-full h-full object-cover gallery-image-click"

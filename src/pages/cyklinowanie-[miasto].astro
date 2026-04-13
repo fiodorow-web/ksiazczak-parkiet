@@ -161,6 +161,27 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- Powiązane usługi — internal linking -->
+  <section class="section-padding bg-white">
+    <div class="container-max">
+      <h2 class="section-title text-center" data-animate>Sprawdź pełną ofertę</h2>
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 max-w-3xl mx-auto">
+        <a href="/uslugi" class="group rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100 transition-all hover:ring-wood-200 hover:shadow-sm" data-animate>
+          <p class="font-semibold text-stone-900 group-hover:text-wood-600 transition-colors">Wszystkie usługi</p>
+          <p class="mt-1 text-xs text-stone-500">Cyklinowanie, lakierowanie, olejowanie, układanie</p>
+        </a>
+        <a href="/schody-drewniane" class="group rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100 transition-all hover:ring-wood-200 hover:shadow-sm" data-animate style="transition-delay: 80ms">
+          <p class="font-semibold text-stone-900 group-hover:text-wood-600 transition-colors">Schody drewniane</p>
+          <p class="mt-1 text-xs text-stone-500">Montaż, produkcja i renowacja na wymiar</p>
+        </a>
+        <a href="/realizacje" class="group rounded-xl bg-stone-50 p-5 text-center ring-1 ring-stone-100 transition-all hover:ring-wood-200 hover:shadow-sm" data-animate style="transition-delay: 160ms">
+          <p class="font-semibold text-stone-900 group-hover:text-wood-600 transition-colors">Realizacje</p>
+          <p class="mt-1 text-xs text-stone-500">Galeria zdjęć parkietów i schodów</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ — unikalne pytania per miasto -->
   <FAQ items={miasto.faq} />
 
